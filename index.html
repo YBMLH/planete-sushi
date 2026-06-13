@@ -363,6 +363,17 @@
   }
   @media(max-width:620px){ .card-dish img{ width:min(72%,210px); } }
 
+  /* featured dish cards — each plat with its own photo */
+  .dish-grid { display:grid; grid-template-columns:1fr; gap:18px; margin-bottom:18px; }
+  @media(min-width:600px){ .dish-grid{ grid-template-columns:1fr 1fr; } }
+  .dish-card { display:flex; flex-direction:column; }
+  .dish-card .card-dish { flex:1; align-items:center; }
+  .dish-foot {
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:4px 20px 20px; margin-top:auto;
+  }
+  .dish-foot .dish-name { font-size:.95rem; font-weight:600; color:var(--text); line-height:1.25; transition:color .5s ease; }
+
   /* grid of simple-price items on wider screens */
   .item-grid { display:grid; grid-template-columns:1fr; }
   @media(min-width:720px){ .item-grid{ grid-template-columns:1fr 1fr; } .item-grid .item-row:nth-child(odd){ border-right:1px solid var(--border);} }
@@ -695,17 +706,31 @@
       <h2 class="section-title">Plats</h2>
       <span class="section-sub">Sauce au Choix</span>
     </div>
+    <div class="dish-grid">
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><img src="images/boeuf.png" alt="Bœuf Sauté aux Oignons — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+        <div class="dish-foot"><span class="dish-name">Bœuf Sauté aux Oignons</span><span class="item-price">1 000 <small>DA</small></span></div>
+      </div>
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><img src="images/saumon.png" alt="Pavé de Saumon Laqué — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+        <div class="dish-foot"><span class="dish-name">Pavé de Saumon Laqué</span><span class="item-price">2 000 <small>DA</small></span></div>
+      </div>
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><img src="images/dorade.png" alt="Dorade Grillée — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+        <div class="dish-foot"><span class="dish-name">Dorade Grillée</span><span class="item-price">1 200 <small>DA</small></span></div>
+      </div>
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><img src="images/chicken.png" alt="Chicken Crousty — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+        <div class="dish-foot"><span class="dish-name">Chicken Crousty</span><span class="item-price">800 <small>DA</small></span></div>
+      </div>
+    </div>
+
     <div class="menu-card reveal">
-      <div class="card-dish"><img src="images/plats.png" alt="Plats — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Poulet Pané</div><div class="item-price">1 000 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Dorade Pané</div><div class="item-price">1 200 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Crevette Tempura ×6</div><div class="item-price">1 500 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Poulpe Grillé</div><div class="item-price">1 800 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Bœuf Sauté aux Oignons</div><div class="item-price">1 000 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Pavé de Saumon Laqué</div><div class="item-price">2 000 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Dorade Grillée</div><div class="item-price">1 200 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Chicken Crousty</div><div class="item-price">800 <small>DA</small></div></div>
       </div>
       <div class="base-note">Sauce au choix : Chilli · Mayo épicée · Aigre douce</div>
     </div>
