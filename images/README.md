@@ -1,33 +1,34 @@
-# Section banner images
+# Section dish images
 
-Drop one photo per section here, named exactly as below (`.jpg`).
-Each appears as a wide banner across the top of that section's menu card.
-If a file is missing, the site simply hides that banner — nothing breaks.
+One image per section, named exactly as below (`.png`).
+Each is a **transparent cut-out of the whole dish** that floats at the top
+of that section's menu card. If a file is missing, the site simply hides
+that dish — nothing breaks.
 
-Recommended: landscape photos, ~1600×600px (16:6), well-lit.
-Order matches the printed menu.
+Tip: use a square-ish photo of the plated dish; background removed (PNG with
+transparency). Order matches the printed menu.
 
 | File             | Section                  |
 |------------------|--------------------------|
-| salades.jpg      | Salades                  |
-| gyoza.jpg        | Gyoza                    |
-| printemps.jpg    | Rouleaux de Printemps    |
-| nems.jpg         | Nems                     |
-| ramen.jpg        | Ramen                    |
-| nouilles.jpg     | Nouilles                 |
-| yakitori.jpg     | Brochettes Yakitori      |
-| plats.jpg        | Plats                    |
-| riz.jpg          | Riz Thaï                 |
-| chirashi.jpg     | Chirashi                 |
-| nigiri.jpg       | Nigiri                   |
-| poke.jpg         | Poké Bowl                |
-| california.jpg   | California Roll          |
-| maki.jpg         | Maki                     |
-| special.jpg      | Special Roll             |
-| futomaki.jpg     | Futomaki                 |
-| crunchy.jpg      | Crunchy Roll             |
-| sandwich.jpg     | Club Sandwich Crunchy    |
-| burger.jpg       | Sushi Burger             |
-| mixbox.jpg       | Mix Box                  |
-| desserts.jpg     | Desserts                 |
-| drinks.jpg       | Boissons                 |
+| salades.png      | Salades                  |
+| gyoza.png        | Gyoza                    |
+| printemps.png    | Rouleaux de Printemps    |
+| nems.png         | Nems                     |
+| ramen.png        | Ramen                    |
+| nouilles.png     | Nouilles                 |
+| yakitori.png     | Brochettes Yakitori      |
+| plats.png        | Plats                    |
+| riz.png          | Riz Thaï                 |
+| chirashi.png     | Chirashi                 |
+| nigiri.png       | Nigiri                   |
+| poke.png         | Poké Bowl                |
+| california.png   | California Roll          |
+| maki.png         | Maki                     |
+| special.png      | Special Roll             |
+| futomaki.png     | Futomaki                 |
+| crunchy.png      | Crunchy Roll             |
+| sandwich.png     | Club Sandwich Crunchy    |
+| burger.png       | Sushi Burger             |
+| mixbox.png       | Mix Box                  |
+| desserts.png     | Desserts                 |
+| drinks.png       | Boissons                 |
