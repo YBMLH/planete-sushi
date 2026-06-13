@@ -447,7 +447,10 @@
   /* ───────────────── FOOTER ───────────────── */
   footer { position:relative; z-index:1; border-top:1px solid var(--border); background:var(--surface); transition:background .5s ease,border-color .5s ease; }
   .footer-inner { max-width:1080px; margin:0 auto; padding:clamp(40px,7vw,64px) clamp(20px,5vw,40px) 30px; display:grid; gap:30px; grid-template-columns:1fr; text-align:center; }
-  @media(min-width:760px){ .footer-inner{ grid-template-columns:1fr 1fr 1fr; text-align:left; align-items:center; } }
+  @media(min-width:760px){ .footer-inner{ grid-template-columns:1.4fr 1fr 1fr 1fr; text-align:left; align-items:start; } }
+  .footer-col a { color:var(--muted); text-decoration:none; transition:color .2s ease; }
+  .footer-col a:hover { color:var(--red); }
+  .footer-slogan { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.95rem; color:var(--muted); margin-top:2px; }
   .footer-brand { display:flex; flex-direction:column; align-items:center; gap:14px; }
   @media(min-width:760px){ .footer-brand{ align-items:flex-start; } }
   .footer-brand img { width:70px; height:70px; object-fit:contain; filter:drop-shadow(0 4px 12px var(--glow)); }
@@ -515,7 +518,7 @@
   <p class="hero-kanji">鮨 · Planète Sushi · 寿司</p>
   <div class="hero-dragon" role="img" aria-label="Dragon rouge Planète Sushi"></div>
   <h2><span class="l1">Planète</span><span class="l2">Sushi</span></h2>
-  <p class="hero-tag">L'art du sushi, frais chaque jour — une touche japonaise &amp; thaï au cœur de Bordj Bou Arréridj.</p>
+  <p class="hero-tag">Voyage gustatif au cœur de l'Asie — sushi frais préparés chaque jour à Bordj Bou Arréridj.</p>
   <div class="hero-meta">
     <span>🍣 Fresh Daily</span><span class="dot"></span>
     <span>📍 Bordj Bou Arréridj</span><span class="dot"></span>
@@ -541,6 +544,7 @@
     <button class="cat-btn active" data-target="salades">Salades</button>
     <button class="cat-btn" data-target="gyoza">Gyoza</button>
     <button class="cat-btn" data-target="printemps">Printemps</button>
+    <button class="cat-btn" data-target="nems">Nems</button>
     <button class="cat-btn" data-target="ramen">Ramen</button>
     <button class="cat-btn" data-target="nouilles">Nouilles</button>
     <button class="cat-btn" data-target="yakitori">Yakitori</button>
@@ -573,8 +577,8 @@
     <div class="menu-card reveal">
       <figure class="card-banner"><img src="images/salades.jpg" alt="Salades — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></figure>
       <div class="item-grid">
-        <div class="item-row"><div class="item-name">Salade Planète Sushi</div><div class="item-price">1 500 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Salade de Poulpe</div><div class="item-price">1 000 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Salade Planète Sushi</div><div class="item-price">1 200 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Salade de Poulpe</div><div class="item-price">1 400 <small>DA</small></div></div>
       </div>
     </div>
   </section>
@@ -588,7 +592,7 @@
     <div class="menu-card reveal">
       <figure class="card-banner"><img src="images/gyoza.jpg" alt="Gyoza — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></figure>
       <div class="item-grid">
-        <div class="item-row"><div class="item-name">Gyoza Poulet</div><div class="item-price">800 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Gyoza Poulet</div><div class="item-price">900 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Gyoza Viande</div><div class="item-price">1 000 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Gyoza Crevette</div><div class="item-price">1 200 <small>DA</small></div></div>
       </div>
@@ -607,6 +611,22 @@
         <div class="item-row"><div class="item-name">Végétarien</div><div class="item-price">500 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Poulet</div><div class="item-price">600 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Crevette</div><div class="item-price">700 <small>DA</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="nems">
+    <div class="section-header reveal">
+      <span class="section-emoji">🥢</span>
+      <h2 class="section-title">Nems</h2>
+      <span class="section-sub">Croustillants</span>
+    </div>
+    <div class="menu-card reveal">
+      <figure class="card-banner"><img src="images/nems.jpg" alt="Nems — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></figure>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Végétarien</div><div class="item-price">500 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Poulet</div><div class="item-price">700 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Crevette</div><div class="item-price">800 <small>DA</small></div></div>
       </div>
     </div>
   </section>
@@ -671,8 +691,8 @@
     <div class="menu-card reveal">
       <figure class="card-banner"><img src="images/plats.jpg" alt="Plats — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></figure>
       <div class="item-grid">
-        <div class="item-row"><div><div class="item-name">Poulet Pané</div><div class="item-desc">Prix à confirmer</div></div><div class="item-price" style="color:var(--muted)">—</div></div>
-        <div class="item-row"><div><div class="item-name">Dorade Pané</div><div class="item-desc">Prix à confirmer</div></div><div class="item-price" style="color:var(--muted)">—</div></div>
+        <div class="item-row"><div class="item-name">Poulet Pané</div><div class="item-price">1 000 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Dorade Pané</div><div class="item-price">1 200 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Crevette Tempura ×6</div><div class="item-price">1 500 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Poulpe Grillé</div><div class="item-price">1 800 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Bœuf Sauté aux Oignons</div><div class="item-price">1 000 <small>DA</small></div></div>
@@ -806,8 +826,8 @@
       <div class="item-row-dual"><div><div class="item-name">Green Dragon</div><div class="item-desc">Crevette, tempura, concombre, avocat</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
       <div class="item-row-dual"><div><div class="item-name">Rainbow</div><div class="item-desc">Saumon, avocat, surimi pané</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
       <div class="item-row-dual"><div><div class="item-name">Manga</div><div class="item-desc">Dorade panée, avocat, mangue</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Planète Signature</div><div class="item-desc">Crevette, thon, dorade</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Beef Roll</div><div class="item-desc">Bœuf tataki, avocat, poivre, carottes sautées</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Planète Signature</div><div class="item-desc">Crevette, thon, dorade</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Beef Roll</div><div class="item-desc">Bœuf tataki, avocat, poivron, carottes sautées</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
       <div class="item-row-dual"><div><div class="item-name">Salmon Roll</div><div class="item-desc">Saumon, concombre, cheese</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
       <div class="item-row-dual"><div><div class="item-name">Spring</div><div class="item-desc">Poulet pané, laitue, avocat, papier de riz</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
     </div>
@@ -828,6 +848,7 @@
       <div class="item-row-dual"><div><div class="item-name">Futomaki Thon</div><div class="item-desc">Thon pané, avocat, cheese</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
       <div class="item-row-dual"><div><div class="item-name">Futomaki Surimi</div><div class="item-desc">Surimi pané, avocat</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
       <div class="item-row-dual"><div><div class="item-name">Crunchy Futomaki</div><div class="item-desc">Saumon, surimi, avocat</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
+      <div class="base-note">Base : Concombre + Avocat</div>
     </div>
   </section>
 
@@ -842,7 +863,7 @@
       <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
       <div class="item-row-dual"><div><div class="item-name">Crunchy Salmon</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
       <div class="item-row-dual"><div><div class="item-name">Crunchy Crevette</div></div><div class="dual-val">900</div><div class="dual-val">1 800</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Chicken</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Chicken</div></div><div class="dual-val">700</div><div class="dual-val">1 400</div></div>
       <div class="item-row-dual"><div><div class="item-name">Crunchy Dorade</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
       <div class="item-row-dual"><div><div class="item-name">Crunchy Poulpe</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
       <div class="item-row-dual"><div><div class="item-name">Crunchy Thon</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
@@ -906,7 +927,7 @@
     <div class="sub-head reveal"><span class="se">👨‍🍳</span> Mix Box Special</div>
     <div class="menu-card reveal">
       <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 20</span><span class="box-count">20 pcs</span></div><div class="item-price">6 000 <small>DA</small></div></div><div class="box-contents">4 Planète Signature + 4 Manga + 4 Spring + 4 Green Dragon</div></div>
-      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 50</span><span class="box-count">50 pcs</span></div><div class="item-price">10 000 <small>DA</small></div></div><div class="box-contents">Sélection spéciale du Chef</div></div>
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 50</span><span class="box-count">50 pcs</span></div><div class="item-price">10 000 <small>DA</small></div></div><div class="box-contents">Rouleaux du Chef · Special Roll</div></div>
     </div>
   </section>
 
@@ -923,7 +944,7 @@
         <div class="item-row"><div class="item-name">Maki Choco Mangue</div><div class="item-price">800 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Maki Choco Banane-Mangue</div><div class="item-price">900 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Banane Tempura + Ice Cream</div><div class="item-price">600 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Cheese Boba</div><div class="item-price">600 <small>DA</small></div></div>
+        <div class="item-row"><div><div class="item-name">Cheese Boba</div><div class="item-desc">Sauce pistache · coulis de fruits · chocolat · spéculoos</div></div><div class="item-price">600 <small>DA</small></div></div>
         <div class="item-row"><div><div class="item-name">Mochi</div><div class="item-desc">Selon disponibilité</div></div><div class="item-price">400 <small>DA</small></div></div>
       </div>
     </div>
@@ -974,14 +995,21 @@
     <div class="footer-brand reveal">
       <img src="dragon.png" alt="Planète Sushi">
       <h3>Planète <span>Sushi</span></h3>
+      <p class="footer-slogan">Voyage gustatif au cœur de l'Asie</p>
+    </div>
+    <div class="footer-col reveal">
+      <h4>Commander</h4>
+      <p><a href="tel:0665065697"><strong>0665 06 56 97</strong></a><br>
+         <a href="tel:0559746777"><strong>0559 74 67 77</strong></a></p>
+    </div>
+    <div class="footer-col reveal">
+      <h4>Réseaux</h4>
+      <p><a href="https://www.facebook.com/planetesushi.dz" target="_blank" rel="noopener">📘 Planète Sushi DZ</a><br>
+         <a href="https://www.instagram.com/planete.sushi.dz" target="_blank" rel="noopener">📸 planete.sushi-dz</a></p>
     </div>
     <div class="footer-col reveal">
       <h4>Adresse</h4>
-      <p><strong>Bordj Bou Arréridj</strong><br>Algérie 🇩🇿</p>
-    </div>
-    <div class="footer-col reveal">
-      <h4>Cuisine</h4>
-      <p>Japanese · Thai<br><strong>🍣 Fresh Daily</strong><br>Sushi préparés chaque jour</p>
+      <p><strong>Bordj Bou Arréridj</strong><br>Algérie 🇩🇿<br><span style="color:var(--red);font-weight:600">🍣 Fresh Daily</span></p>
     </div>
   </div>
   <div class="footer-bottom">

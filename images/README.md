@@ -12,6 +12,7 @@ Order matches the printed menu.
 | salades.jpg      | Salades                  |
 | gyoza.jpg        | Gyoza                    |
 | printemps.jpg    | Rouleaux de Printemps    |
+| nems.jpg         | Nems                     |
 | ramen.jpg        | Ramen                    |
 | nouilles.jpg     | Nouilles                 |
 | yakitori.jpg     | Brochettes Yakitori      |
