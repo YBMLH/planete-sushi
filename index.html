@@ -3,871 +3,918 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Planète Sushi — Menu</title>
+<meta name="theme-color" content="#C0272D">
+<meta name="description" content="Planète Sushi — Restaurant Japonais & Thaï à Bordj Bou Arréridj. Sushi frais préparés chaque jour : chirashi, california, futomaki, poké bowl, bubble tea et plus.">
+<title>Planète Sushi — Japanese · Thai Restaurant</title>
+<link rel="icon" href="dragon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --red: #C0272D;
-    --red-dark: #9b1e23;
-    --black: #111111;
-    --white: #ffffff;
-    --bg: #f8f5f0;
-    --card-bg: #ffffff;
-    --text: #1a1a1a;
-    --text-muted: #666;
-    --border: #e8e0d8;
-    --header-bg: #ffffff;
-    --shadow: 0 2px 16px rgba(0,0,0,0.08);
-    --tag-bg: #f0ebe3;
-    --table-head: #f5f0ea;
-    --section-divider: #e0d8cf;
+    --red:        #C0272D;
+    --red-deep:   #9b1e23;
+    --red-soft:   #d8484e;
+    --gold:       #d4a437;
+    --black:      #141414;
+    --white:      #ffffff;
+
+    --bg:         #f7f3ec;
+    --bg-grain:   #f1ebe0;
+    --surface:    #ffffff;
+    --surface-2:  #fbf8f3;
+    --text:       #181412;
+    --muted:      #756a5e;
+    --border:     #ece3d6;
+    --header-bg:  rgba(255,255,255,0.82);
+    --shadow:     0 10px 40px -12px rgba(60,30,20,0.18);
+    --shadow-sm:  0 4px 18px -8px rgba(60,30,20,0.20);
+    --tag-bg:     #f4eee4;
+    --glow:       rgba(192,39,45,0.22);
+    --hero-fade:  rgba(247,243,236,0);
+    --hero-fade2: #f7f3ec;
+    --ring:       rgba(192,39,45,0.30);
   }
 
   [data-theme="dark"] {
-    --bg: #0d0d0d;
-    --card-bg: #1a1a1a;
-    --text: #f0ece6;
-    --text-muted: #999;
-    --border: #2a2a2a;
-    --header-bg: #111111;
-    --shadow: 0 2px 20px rgba(0,0,0,0.5);
-    --tag-bg: #252525;
-    --table-head: #222222;
-    --section-divider: #2a2a2a;
+    --bg:         #0c0b0a;
+    --bg-grain:   #110f0e;
+    --surface:    #161413;
+    --surface-2:  #1c1917;
+    --text:       #f3ede2;
+    --muted:      #9c9286;
+    --border:     #2a2623;
+    --header-bg:  rgba(14,12,11,0.78);
+    --shadow:     0 14px 44px -10px rgba(0,0,0,0.7);
+    --shadow-sm:  0 6px 22px -10px rgba(0,0,0,0.7);
+    --tag-bg:     #221f1c;
+    --glow:       rgba(216,72,78,0.30);
+    --hero-fade:  rgba(12,11,10,0);
+    --hero-fade2: #0c0b0a;
+    --ring:       rgba(216,72,78,0.40);
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 
   body {
-    font-family: 'Montserrat', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    transition: background 0.35s ease, color 0.35s ease;
-    min-height: 100vh;
+    font-family:'Montserrat',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    transition:background .5s ease,color .5s ease;
+    position:relative;
   }
 
-  /* ── HEADER ── */
+  /* subtle grain / pattern backdrop */
+  body::before {
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(circle at 15% 12%, var(--glow), transparent 38%),
+      radial-gradient(circle at 88% 85%, var(--glow), transparent 42%);
+    opacity:.5; pointer-events:none; z-index:0;
+    transition:opacity .5s ease;
+  }
+
+  ::selection { background:var(--red); color:#fff; }
+
+  /* ───────────────── HEADER ───────────────── */
   header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--header-bg);
-    border-bottom: 3px solid var(--red);
-    transition: background 0.35s ease;
+    position:fixed; top:0; left:0; right:0;
+    z-index:200;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px clamp(16px,4vw,40px);
+    transition:background .4s ease,box-shadow .4s ease,padding .4s ease,border-color .4s ease;
+    border-bottom:1px solid transparent;
+    backdrop-filter:saturate(140%) blur(0px);
+  }
+  header.scrolled {
+    background:var(--header-bg);
+    backdrop-filter:saturate(160%) blur(14px);
+    border-bottom-color:var(--border);
+    box-shadow:var(--shadow-sm);
+    padding-top:10px; padding-bottom:10px;
   }
 
-  .header-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px 10px;
-    gap: 12px;
+  .brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .brand-mark {
+    width:42px; height:42px; flex-shrink:0;
+    display:grid; place-items:center;
+    filter:drop-shadow(0 2px 6px var(--glow));
+    transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .brand-mark img { width:100%; height:100%; object-fit:contain; }
+  .brand:hover .brand-mark { transform:rotate(-8deg) scale(1.06); }
+  .brand-text h1 {
+    font-family:'Montserrat',sans-serif; font-weight:900;
+    font-size:clamp(.95rem,2.6vw,1.15rem);
+    letter-spacing:.16em; text-transform:uppercase;
+    color:var(--text); line-height:1;
+    transition:color .5s ease;
+  }
+  .brand-text h1 span { color:var(--red); }
+  .brand-text p {
+    font-size:.52rem; letter-spacing:.34em; text-transform:uppercase;
+    color:var(--muted); margin-top:5px; font-weight:600;
   }
 
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
+  .header-actions { display:flex; align-items:center; gap:14px; }
+
+  /* ─── PERFECT YIN-YANG TOGGLE ─── */
+  .yy-toggle {
+    --s:46px;
+    width:var(--s); height:var(--s);
+    border:none; background:none; cursor:pointer; padding:0;
+    border-radius:50%; position:relative; flex-shrink:0;
+    display:grid; place-items:center;
+    transition:transform .9s cubic-bezier(.65,.05,.36,1);
+  }
+  .yy-toggle::after {           /* glow ring */
+    content:""; position:absolute; inset:-5px; border-radius:50%;
+    box-shadow:0 0 0 1px var(--ring), 0 6px 22px -6px var(--glow);
+    opacity:0; transition:opacity .4s ease;
+  }
+  .yy-toggle:hover::after { opacity:1; }
+  .yy-toggle svg { width:100%; height:100%; display:block;
+    filter:drop-shadow(0 3px 8px rgba(0,0,0,.25)); }
+  html[data-theme="dark"] .yy-toggle { transform:rotate(180deg); }
+
+  .yy-rim { stroke:var(--red); stroke-width:2.4; fill:none; opacity:.9; }
+
+  /* ───────────────── HERO ───────────────── */
+  .hero {
+    position:relative; z-index:1;
+    min-height:100svh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center;
+    padding:96px clamp(16px,5vw,40px) 60px;
+    overflow:hidden;
+  }
+  .hero-glow {
+    position:absolute; top:42%; left:50%;
+    width:min(120vw,760px); aspect-ratio:1; transform:translate(-50%,-50%);
+    background:radial-gradient(circle, var(--glow), transparent 62%);
+    z-index:-1; filter:blur(10px);
+    animation:pulse 7s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1);} 50%{opacity:.9;transform:translate(-50%,-50%) scale(1.08);} }
+
+  .hero-kanji {
+    font-family:'Noto Serif JP',serif; font-weight:700;
+    font-size:clamp(.6rem,2vw,.78rem); letter-spacing:.6em;
+    color:var(--red); text-transform:uppercase; margin-left:.6em;
+    opacity:0; transform:translateY(14px);
+    animation:rise .9s .15s cubic-bezier(.2,.8,.2,1) forwards;
   }
 
-  .header-logo img {
-    width: 54px;
-    height: 54px;
-    border-radius: 8px;
-    object-fit: cover;
-    border: 2px solid var(--border);
+  .hero-dragon {
+    width:clamp(190px,40vw,330px); aspect-ratio:1;
+    margin:6px auto 4px;
+    background:url("dragon.png") center/contain no-repeat;
+    opacity:0; transform:scale(.82) rotate(-6deg);
+    animation:dragonIn 1.3s .1s cubic-bezier(.2,.85,.25,1) forwards, float 6s 1.4s ease-in-out infinite;
+    will-change:transform;
   }
+  @keyframes dragonIn { to{opacity:1; transform:scale(1) rotate(0);} }
+  @keyframes float { 0%,100%{transform:translateY(0) rotate(0);} 50%{transform:translateY(-14px) rotate(1.5deg);} }
 
-  .header-title h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 1.35rem;
-    letter-spacing: 0.06em;
-    color: var(--red);
-    text-transform: uppercase;
-    line-height: 1;
+  .hero h2 {
+    font-family:'Montserrat',sans-serif; font-weight:900;
+    font-size:clamp(2.6rem,11vw,6rem); line-height:.92;
+    letter-spacing:.02em; text-transform:uppercase;
+    margin-top:4px;
   }
-
-  .header-title p {
-    font-size: 0.6rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-top: 3px;
-    font-weight: 500;
+  .hero h2 .l1 { display:block; color:var(--text); transition:color .5s ease;
+    opacity:0; transform:translateY(24px); animation:rise .9s .4s cubic-bezier(.2,.8,.2,1) forwards; }
+  .hero h2 .l2 {
+    display:block;
+    background:linear-gradient(100deg,var(--red),var(--red-soft) 55%,var(--red));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    opacity:0; transform:translateY(24px); animation:rise .9s .55s cubic-bezier(.2,.8,.2,1) forwards;
   }
-
-  /* Yin-yang toggle */
-  .yinyang-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: transform 0.6s ease;
-    flex-shrink: 0;
-    padding: 0;
+  .hero-tag {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:clamp(1.05rem,3.4vw,1.5rem); color:var(--muted);
+    margin-top:18px; max-width:30ch;
+    opacity:0; transform:translateY(20px); animation:rise .9s .72s cubic-bezier(.2,.8,.2,1) forwards;
   }
-
-  .yinyang-btn:hover { transform: rotate(180deg); }
-
-  .yinyang-btn svg {
-    width: 38px;
-    height: 38px;
+  .hero-meta {
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:center;
+    margin-top:14px; font-size:.6rem; font-weight:700; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--muted);
+    opacity:0; animation:fade 1s .9s ease forwards;
   }
+  .hero-meta .dot { width:5px; height:5px; border-radius:50%; background:var(--red); }
 
-  /* Header banner */
-  .header-banner {
-    background: var(--red);
-    padding: 7px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #fff;
+  .hero-cta {
+    display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:34px;
+    opacity:0; transform:translateY(20px); animation:rise .9s 1s cubic-bezier(.2,.8,.2,1) forwards;
   }
-
-  .banner-dot { width: 4px; height: 4px; background: rgba(255,255,255,0.5); border-radius: 50%; }
-
-  /* ── NAV TABS ── */
-  .category-nav {
-    background: var(--header-bg);
-    border-bottom: 1px solid var(--border);
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    transition: background 0.35s ease;
+  .btn {
+    font-family:'Montserrat',sans-serif; font-weight:800;
+    font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
+    padding:15px 30px; border-radius:50px; cursor:pointer;
+    text-decoration:none; border:1.5px solid transparent;
+    display:inline-flex; align-items:center; gap:9px;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+    position:relative; overflow:hidden;
   }
+  .btn-primary { background:var(--red); color:#fff; box-shadow:0 12px 30px -10px var(--glow); }
+  .btn-primary:hover { transform:translateY(-3px); box-shadow:0 18px 40px -10px var(--glow); background:var(--red-deep); }
+  .btn-ghost { background:transparent; color:var(--text); border-color:var(--border); }
+  .btn-ghost:hover { transform:translateY(-3px); border-color:var(--red); color:var(--red); }
 
-  .category-nav::-webkit-scrollbar { display: none; }
-
-  .category-nav-inner {
-    display: flex;
-    gap: 0;
-    padding: 0 12px;
-    min-width: max-content;
+  .scroll-cue {
+    position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-size:.5rem; letter-spacing:.3em; text-transform:uppercase; color:var(--muted);
+    opacity:0; animation:fade 1s 1.3s ease forwards;
   }
+  .scroll-cue .mouse {
+    width:22px; height:36px; border:2px solid var(--muted); border-radius:14px;
+    position:relative;
+  }
+  .scroll-cue .mouse::after {
+    content:""; position:absolute; top:6px; left:50%; transform:translateX(-50%);
+    width:3px; height:7px; border-radius:3px; background:var(--red);
+    animation:wheel 1.6s infinite;
+  }
+  @keyframes wheel { 0%{opacity:0;top:6px;} 30%{opacity:1;} 60%{opacity:1;top:16px;} 100%{opacity:0;top:18px;} }
 
+  @keyframes rise { to{opacity:1; transform:translateY(0);} }
+  @keyframes fade { to{opacity:1;} }
+
+  /* ───────────────── MARQUEE BANNER ───────────────── */
+  .marquee {
+    position:relative; z-index:1;
+    background:var(--red); color:#fff; overflow:hidden;
+    border-top:1px solid var(--red-deep); border-bottom:1px solid var(--red-deep);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  }
+  .marquee-track {
+    display:flex; gap:42px; width:max-content;
+    padding:11px 0; animation:scrollx 28s linear infinite;
+    white-space:nowrap;
+  }
+  .marquee:hover .marquee-track { animation-play-state:paused; }
+  .marquee-track span {
+    font-size:.64rem; font-weight:800; letter-spacing:.22em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:42px;
+  }
+  .marquee-track span::after { content:"✦"; color:rgba(255,255,255,.55); }
+  @keyframes scrollx { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ───────────────── CATEGORY NAV ───────────────── */
+  .catnav {
+    position:sticky; top:64px; z-index:150;
+    background:var(--header-bg);
+    backdrop-filter:saturate(160%) blur(14px);
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    overflow-x:auto; scrollbar-width:none;
+    transition:background .5s ease,border-color .5s ease;
+  }
+  .catnav::-webkit-scrollbar { display:none; }
+  .catnav-inner {
+    display:flex; gap:4px; padding:0 clamp(10px,3vw,24px);
+    min-width:max-content; margin:0 auto; justify-content:center;
+  }
   .cat-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px 14px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-    white-space: nowrap;
+    background:none; border:none; cursor:pointer; position:relative;
+    padding:14px 14px; font-family:'Montserrat',sans-serif;
+    font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); white-space:nowrap; transition:color .25s ease;
   }
+  .cat-btn::after {
+    content:""; position:absolute; left:14px; right:14px; bottom:8px; height:2px;
+    background:var(--red); border-radius:2px; transform:scaleX(0); transform-origin:center;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .cat-btn:hover { color:var(--text); }
+  .cat-btn.active { color:var(--red); }
+  .cat-btn.active::after { transform:scaleX(1); }
 
-  .cat-btn:hover, .cat-btn.active {
-    color: var(--red);
-    border-bottom-color: var(--red);
-  }
+  /* ───────────────── MAIN ───────────────── */
+  main { position:relative; z-index:1; padding:clamp(36px,7vw,72px) clamp(16px,4vw,32px) 40px; max-width:1080px; margin:0 auto; }
 
-  /* ── MAIN CONTENT ── */
-  main {
-    padding: 24px 16px 48px;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  /* ── SECTION ── */
-  .menu-section {
-    margin-bottom: 36px;
-    scroll-margin-top: 130px;
-  }
+  .menu-section { margin-bottom:clamp(46px,7vw,80px); scroll-margin-top:130px; }
 
   .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
+    display:flex; align-items:flex-end; gap:14px; margin-bottom:26px;
+    padding-bottom:14px; border-bottom:1px solid var(--border);
+    position:relative;
   }
-
+  .section-header::before {
+    content:""; position:absolute; left:0; bottom:-1px; width:64px; height:3px;
+    background:var(--red); border-radius:3px;
+  }
   .section-emoji {
-    font-size: 1.4rem;
-    line-height: 1;
+    font-size:1.7rem; line-height:1;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.15));
   }
-
   .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 0.02em;
-    color: var(--text);
+    font-family:'Cormorant Garamond',serif; font-weight:700;
+    font-size:clamp(1.7rem,5vw,2.5rem); letter-spacing:.01em; color:var(--text);
+    line-height:1; transition:color .5s ease;
   }
-
   .section-sub {
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-left: auto;
-    padding: 3px 8px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
+    font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--muted); margin-left:auto; padding:6px 13px;
+    border:1px solid var(--border); border-radius:50px; white-space:nowrap;
+    background:var(--surface);
   }
 
-  /* ── MENU CARD ── */
+  /* card */
   .menu-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: background 0.35s ease, border-color 0.35s ease;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:20px; overflow:hidden; box-shadow:var(--shadow);
+    transition:background .5s ease,border-color .5s ease;
   }
 
-  /* ── ITEM ROW (simple price) ── */
+  /* grid of simple-price items on wider screens */
+  .item-grid { display:grid; grid-template-columns:1fr; }
+  @media(min-width:720px){ .item-grid{ grid-template-columns:1fr 1fr; } .item-grid .item-row:nth-child(odd){ border-right:1px solid var(--border);} }
+
   .item-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 13px 16px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-    gap: 12px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:14px; padding:16px 20px; border-bottom:1px solid var(--border);
+    position:relative; transition:background .25s ease, padding-left .25s ease;
   }
-
-  .item-row:last-child { border-bottom: none; }
-  .item-row:hover { background: var(--tag-bg); }
-
-  .item-name {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text);
-    flex: 1;
+  .item-row::before {
+    content:""; position:absolute; left:0; top:14%; bottom:14%; width:3px;
+    background:var(--red); border-radius:3px; transform:scaleY(0); transform-origin:center;
+    transition:transform .25s ease;
   }
+  .item-row:hover { background:var(--surface-2); padding-left:26px; }
+  .item-row:hover::before { transform:scaleY(1); }
+  .item-grid .item-row:nth-last-child(-n+1){ border-bottom:none; }
+  .menu-card > .item-row:last-child { border-bottom:none; }
 
-  .item-desc {
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-    font-weight: 400;
-    font-style: italic;
-  }
-
+  .item-name { font-size:.92rem; font-weight:600; color:var(--text); transition:color .5s ease; }
+  .item-desc { font-size:.72rem; color:var(--muted); margin-top:3px; font-style:italic; font-weight:400; line-height:1.4; }
   .item-price {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--red);
-    white-space: nowrap;
-    letter-spacing: 0.02em;
+    font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:700;
+    color:var(--red); white-space:nowrap; letter-spacing:.01em;
   }
+  .item-price small { font-size:.62rem; color:var(--muted); font-family:'Montserrat'; font-weight:600; }
 
-  /* ── ITEM ROW WITH 4/8 pcs ── */
-  .item-row-dual {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    align-items: start;
-    padding: 13px 16px;
-    border-bottom: 1px solid var(--border);
-    gap: 10px;
-    transition: background 0.15s;
-  }
-
-  .item-row-dual:last-child { border-bottom: none; }
-  .item-row-dual:hover { background: var(--tag-bg); }
-
-  .dual-prices {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 2px;
-  }
-
-  .dual-price-label {
-    font-size: 0.55rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .dual-price-val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--red);
-  }
-
-  /* Header row for dual price sections */
+  /* dual price (4/8 pcs) */
   .table-header {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    padding: 7px 16px;
-    background: var(--table-head);
-    border-bottom: 1px solid var(--border);
-    gap: 10px;
+    display:grid; grid-template-columns:1fr 80px 80px;
+    padding:12px 20px; background:var(--surface-2); border-bottom:1px solid var(--border); gap:10px;
+  }
+  .table-header span { font-size:.55rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+  .table-header span:not(:first-child){ text-align:right; }
+
+  .item-row-dual {
+    display:grid; grid-template-columns:1fr 80px 80px; align-items:center;
+    padding:15px 20px; border-bottom:1px solid var(--border); gap:10px;
+    position:relative; transition:background .25s ease, padding-left .25s ease;
+  }
+  .item-row-dual::before {
+    content:""; position:absolute; left:0; top:16%; bottom:16%; width:3px;
+    background:var(--red); border-radius:3px; transform:scaleY(0); transition:transform .25s ease;
+  }
+  .item-row-dual:hover { background:var(--surface-2); padding-left:26px; }
+  .item-row-dual:hover::before { transform:scaleY(1); }
+  .item-row-dual:last-child { border-bottom:none; }
+  .dual-val { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:700; color:var(--red); text-align:right; }
+
+  .base-note, .ingredients-note {
+    background:var(--surface-2); border-top:1px solid var(--border);
+    padding:14px 20px; font-size:.72rem; color:var(--muted); font-style:italic;
   }
 
-  .table-header span {
-    font-size: 0.55rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .table-header span:not(:first-child) { text-align: right; }
-
-  /* ── INGREDIENTS NOTE ── */
-  .ingredients-note {
-    background: var(--tag-bg);
-    border-top: 1px solid var(--border);
-    padding: 12px 16px;
-  }
-
-  .ingredients-title {
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-  }
-
-  .ing-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 5px;
-  }
-
-  .ing-row:last-child { margin-bottom: 0; }
-
-  .ing-name {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .ing-items {
-    font-size: 0.67rem;
-    color: var(--text-muted);
-    font-style: italic;
-  }
-
-  /* ── BASE NOTE ── */
-  .base-note {
-    background: var(--tag-bg);
-    border-top: 1px solid var(--border);
-    padding: 10px 16px;
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    font-style: italic;
-  }
-
-  /* ── BOX CARD (Mix Box) ── */
-  .box-row {
-    padding: 13px 16px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-  }
-
-  .box-row:last-child { border-bottom: none; }
-  .box-row:hover { background: var(--tag-bg); }
-
-  .box-top {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 3px;
-  }
-
-  .box-name {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text);
-  }
-
+  /* box rows */
+  .box-row { padding:16px 20px; border-bottom:1px solid var(--border); transition:background .25s ease; }
+  .box-row:last-child { border-bottom:none; }
+  .box-row:hover { background:var(--surface-2); }
+  .box-top { display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:5px; }
+  .box-name { font-size:.92rem; font-weight:700; color:var(--text); transition:color .5s ease; }
   .box-count {
-    display: inline-block;
-    background: var(--red);
-    color: #fff;
-    font-size: 0.55rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    padding: 2px 6px;
-    border-radius: 20px;
-    margin-left: 6px;
-    vertical-align: middle;
+    display:inline-block; background:var(--red); color:#fff; font-size:.55rem; font-weight:800;
+    letter-spacing:.08em; padding:3px 8px; border-radius:50px; margin-left:8px; vertical-align:middle;
   }
+  .box-contents { font-size:.72rem; color:var(--muted); font-style:italic; line-height:1.5; }
 
-  .box-contents {
-    font-size: 0.67rem;
-    color: var(--text-muted);
-    font-style: italic;
-    line-height: 1.4;
+  /* sub-heading inside a section */
+  .sub-head {
+    display:flex; align-items:center; gap:10px; margin:26px 0 14px;
+    font-family:'Cormorant Garamond',serif; font-weight:700; font-size:1.4rem; color:var(--text);
   }
+  .sub-head .se { font-size:1.3rem; }
 
-  /* ── BUBBLE TEA FLAVORS ── */
-  .flavor-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    padding: 12px 16px;
-    border-top: 1px solid var(--border);
-  }
-
+  /* flavor tags */
+  .flavor-title { font-size:.58rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); padding:14px 20px 0; }
+  .flavor-grid { display:flex; flex-wrap:wrap; gap:8px; padding:12px 20px 18px; }
   .flavor-tag {
-    background: var(--tag-bg);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 4px 12px;
-    font-size: 0.67rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: var(--text);
+    background:var(--tag-bg); border:1px solid var(--border); border-radius:50px;
+    padding:6px 14px; font-size:.7rem; font-weight:600; color:var(--text);
+    transition:transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+    cursor:default;
   }
+  .flavor-tag:hover { transform:translateY(-3px); background:var(--red); color:#fff; border-color:var(--red); }
 
-  .flavor-title {
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    padding: 10px 16px 0;
+  /* ───────────────── REVEAL ON SCROLL ───────────────── */
+  .reveal { opacity:0; transform:translateY(34px); transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity:1; transform:none; }
+
+  /* ───────────────── FOOTER ───────────────── */
+  footer { position:relative; z-index:1; border-top:1px solid var(--border); background:var(--surface); transition:background .5s ease,border-color .5s ease; }
+  .footer-inner { max-width:1080px; margin:0 auto; padding:clamp(40px,7vw,64px) clamp(20px,5vw,40px) 30px; display:grid; gap:30px; grid-template-columns:1fr; text-align:center; }
+  @media(min-width:760px){ .footer-inner{ grid-template-columns:1fr 1fr 1fr; text-align:left; align-items:center; } }
+  .footer-brand { display:flex; flex-direction:column; align-items:center; gap:14px; }
+  @media(min-width:760px){ .footer-brand{ align-items:flex-start; } }
+  .footer-brand img { width:70px; height:70px; object-fit:contain; filter:drop-shadow(0 4px 12px var(--glow)); }
+  .footer-brand h3 { font-family:'Montserrat'; font-weight:900; letter-spacing:.14em; text-transform:uppercase; font-size:1rem; }
+  .footer-brand h3 span { color:var(--red); }
+  .footer-col h4 { font-size:.6rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--red); margin-bottom:12px; }
+  .footer-col p { font-size:.82rem; color:var(--muted); line-height:1.9; }
+  .footer-col p strong { color:var(--text); font-weight:600; }
+  .footer-bottom { border-top:1px solid var(--border); padding:18px 20px; text-align:center; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .footer-bottom strong { color:var(--red); }
+
+  /* back to top */
+  .to-top {
+    position:fixed; right:20px; bottom:20px; z-index:180;
+    width:48px; height:48px; border-radius:50%; border:none; cursor:pointer;
+    background:var(--red); color:#fff; display:grid; place-items:center;
+    box-shadow:0 10px 28px -8px var(--glow);
+    opacity:0; transform:translateY(20px) scale(.8); pointer-events:none;
+    transition:opacity .35s ease, transform .35s cubic-bezier(.2,.8,.2,1), background .25s ease;
   }
+  .to-top.show { opacity:1; transform:none; pointer-events:auto; }
+  .to-top:hover { background:var(--red-deep); transform:translateY(-3px); }
+  .to-top svg { width:20px; height:20px; }
 
-  /* ── DIVIDER ── */
-  .section-divider {
-    height: 1px;
-    background: var(--section-divider);
-    margin: 0 0 36px;
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important; scroll-behavior:auto !important; }
+    .reveal { opacity:1; transform:none; }
   }
-
-  /* ── FOOTER ── */
-  footer {
-    text-align: center;
-    padding: 24px 20px 40px;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border);
-  }
-
-  footer strong { color: var(--red); }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-top">
-    <div class="header-logo">
-      <img src="logo.jpg" alt="Planète Sushi" onerror="this.style.display='none'">
-      <div class="header-title">
-        <h1>Planète Sushi</h1>
-        <p>Japanese · Thai Restaurant</p>
-      </div>
-    </div>
-    <button class="yinyang-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" id="yinSvg">
-        <!-- Yin-yang SVG — dynamically colored by JS -->
+<!-- ───── HEADER ───── -->
+<header id="header">
+  <a class="brand" href="#top" aria-label="Planète Sushi accueil">
+    <span class="brand-mark"><img src="dragon.png" alt="Planète Sushi"></span>
+    <span class="brand-text">
+      <h1>Planète <span>Sushi</span></h1>
+      <p>Japanese · Thai</p>
+    </span>
+  </a>
+  <div class="header-actions">
+    <button class="yy-toggle" id="themeToggle" aria-label="Changer de thème clair / sombre" title="Clair / Sombre">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><clipPath id="rightHalf"><rect x="50" y="0" width="50" height="100"/></clipPath></defs>
+        <!-- light base (right) + dark base (left) -->
+        <circle cx="50" cy="50" r="47" fill="#fff"/>
+        <path d="M50 3 A47 47 0 0 0 50 97 Z" fill="#141414"/>
+        <!-- swirl bulbs -->
+        <circle cx="50" cy="26.5" r="23.5" fill="#141414"/>
+        <circle cx="50" cy="73.5" r="23.5" fill="#fff"/>
+        <!-- eye dots -->
+        <circle cx="50" cy="26.5" r="8" fill="#fff"/>
+        <circle cx="50" cy="73.5" r="8" fill="#141414"/>
+        <!-- brand red rim -->
+        <circle class="yy-rim" cx="50" cy="50" r="47"/>
       </svg>
     </button>
   </div>
-  <div class="header-banner">
-    <span>🍣 Fresh Daily</span>
-    <div class="banner-dot"></div>
-    <span>📍 Bordj Bou Arréridj, Algeria</span>
-  </div>
-  <nav class="category-nav" aria-label="Menu categories">
-    <div class="category-nav-inner" id="catNav">
-      <button class="cat-btn active" data-target="chirashi">Chirashi</button>
-      <button class="cat-btn" data-target="nigiri">Nigiri</button>
-      <button class="cat-btn" data-target="poke">Poké Bowl</button>
-      <button class="cat-btn" data-target="california">California</button>
-      <button class="cat-btn" data-target="crunchy">Crunchy</button>
-      <button class="cat-btn" data-target="futomaki">Futomaki</button>
-      <button class="cat-btn" data-target="special">Special</button>
-      <button class="cat-btn" data-target="maki">Maki</button>
-      <button class="cat-btn" data-target="sandwich">Sandwich</button>
-      <button class="cat-btn" data-target="burger">Burger</button>
-      <button class="cat-btn" data-target="mixbox">Mix Box</button>
-      <button class="cat-btn" data-target="mains">Plats</button>
-      <button class="cat-btn" data-target="desserts">Desserts</button>
-      <button class="cat-btn" data-target="drinks">Boissons</button>
-    </div>
-  </nav>
 </header>
+
+<!-- ───── HERO ───── -->
+<section class="hero" id="top">
+  <div class="hero-glow"></div>
+  <p class="hero-kanji">鮨 · Planète Sushi · 寿司</p>
+  <div class="hero-dragon" role="img" aria-label="Dragon rouge Planète Sushi"></div>
+  <h2><span class="l1">Planète</span><span class="l2">Sushi</span></h2>
+  <p class="hero-tag">L'art du sushi, frais chaque jour — une touche japonaise &amp; thaï au cœur de Bordj Bou Arréridj.</p>
+  <div class="hero-meta">
+    <span>🍣 Fresh Daily</span><span class="dot"></span>
+    <span>📍 Bordj Bou Arréridj</span><span class="dot"></span>
+    <span>🇯🇵 Japanese · Thai</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#chirashi" class="btn btn-primary">Découvrir le Menu</a>
+    <a href="#drinks" class="btn btn-ghost">Boissons &amp; Bubble Tea</a>
+  </div>
+  <div class="scroll-cue"><span class="mouse"></span><span>Scroll</span></div>
+</section>
+
+<!-- ───── MARQUEE ───── -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>Sushi Frais</span><span>Chirashi</span><span>California Roll</span><span>Crunchy</span><span>Futomaki</span><span>Poké Bowl</span><span>Sushi Burger</span><span>Bubble Tea</span><span>Mix Box Famille</span>
+  </div>
+</div>
+
+<!-- ───── NAV ───── -->
+<nav class="catnav" aria-label="Catégories du menu">
+  <div class="catnav-inner" id="catNav">
+    <button class="cat-btn active" data-target="chirashi">Chirashi</button>
+    <button class="cat-btn" data-target="nigiri">Nigiri</button>
+    <button class="cat-btn" data-target="poke">Poké Bowl</button>
+    <button class="cat-btn" data-target="california">California</button>
+    <button class="cat-btn" data-target="crunchy">Crunchy</button>
+    <button class="cat-btn" data-target="futomaki">Futomaki</button>
+    <button class="cat-btn" data-target="special">Special</button>
+    <button class="cat-btn" data-target="maki">Maki</button>
+    <button class="cat-btn" data-target="sandwich">Sandwich</button>
+    <button class="cat-btn" data-target="burger">Burger</button>
+    <button class="cat-btn" data-target="mixbox">Mix Box</button>
+    <button class="cat-btn" data-target="mains">Plats</button>
+    <button class="cat-btn" data-target="desserts">Desserts</button>
+    <button class="cat-btn" data-target="drinks">Boissons</button>
+  </div>
+</nav>
 
 <main>
 
   <!-- CHIRASHI -->
   <section class="menu-section" id="chirashi">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🍣</span>
       <h2 class="section-title">Chirashi</h2>
-      <span class="section-sub">Rice + Avocado + Fish</span>
+      <span class="section-sub">Riz · Avocat · Poisson</span>
     </div>
-    <div class="menu-card">
-      <div class="item-row"><div><div class="item-name">Chirashi Saumon</div></div><div class="item-price">2 000 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Chirashi Dorade</div></div><div class="item-price">1 800 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Chirashi Thon</div></div><div class="item-price">1 600 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Chirashi Mix</div></div><div class="item-price">2 000 DA</div></div>
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Chirashi Saumon</div><div class="item-price">2 000 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Chirashi Dorade</div><div class="item-price">1 800 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Chirashi Thon</div><div class="item-price">1 600 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Chirashi Mix</div><div class="item-price">2 000 <small>DA</small></div></div>
+      </div>
     </div>
   </section>
 
   <!-- NIGIRI -->
   <section class="menu-section" id="nigiri">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🍣</span>
       <h2 class="section-title">Nigiri</h2>
       <span class="section-sub">2 Pièces</span>
     </div>
-    <div class="menu-card">
-      <div class="item-row"><div><div class="item-name">Saumon</div></div><div class="item-price">500 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Dorade</div></div><div class="item-price">400 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Thon</div></div><div class="item-price">400 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Avocat</div></div><div class="item-price">300 DA</div></div>
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Saumon</div><div class="item-price">500 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Dorade</div><div class="item-price">400 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Thon</div><div class="item-price">400 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Avocat</div><div class="item-price">300 <small>DA</small></div></div>
+      </div>
     </div>
   </section>
 
   <!-- POKE BOWL -->
   <section class="menu-section" id="poke">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🥗</span>
       <h2 class="section-title">Poké Bowl</h2>
-      <span class="section-sub">Rice + Vegetables + Avocado</span>
+      <span class="section-sub">Riz · Légumes · Avocat</span>
     </div>
-    <div class="menu-card">
-      <div class="item-row"><div><div class="item-name">Végétarien</div></div><div class="item-price">700 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Saumon</div></div><div class="item-price">1 600 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Dorade</div></div><div class="item-price">1 400 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Poulet</div></div><div class="item-price">1 200 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Crevette</div></div><div class="item-price">1 500 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Thon</div></div><div class="item-price">1 400 DA</div></div>
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Végétarien</div><div class="item-price">700 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Saumon</div><div class="item-price">1 600 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Dorade</div><div class="item-price">1 400 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Poulet</div><div class="item-price">1 200 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Crevette</div><div class="item-price">1 500 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Thon</div><div class="item-price">1 400 <small>DA</small></div></div>
+      </div>
     </div>
   </section>
 
-  <!-- CALIFORNIA ROLL -->
+  <!-- CALIFORNIA -->
   <section class="menu-section" id="california">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🍱</span>
       <h2 class="section-title">California Roll</h2>
       <span class="section-sub">4 / 8 Pièces</span>
     </div>
-    <div class="menu-card">
-      <div class="table-header">
-        <span>Article</span><span>4 pcs</span><span>8 pcs</span>
-      </div>
-      <div class="item-row-dual"><div><div class="item-name">Fresh Salmon</div><div class="item-desc">Salmon, avocat, cheese, sésame</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">950 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 900 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Fresh Dorade</div><div class="item-desc">Dorade, avocat, cheese, sésame</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">900 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 800 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Tiger Roll</div><div class="item-desc">Crevette, tempura, avocat, concombre, sésame</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">California Chicken</div><div class="item-desc">Poulet pané, tempura, concombre, sésame</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">700 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 400 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Tuna Roll</div><div class="item-desc">Thon cuit, avocat, concombre, sésame</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Salmon Cheese</div><div class="item-desc">Salmon, cheese, riz</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">900 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 800 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Avocado Cheese</div><div class="item-desc">Avocat, cheese, riz</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">700 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 400 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Tuna Cheese</div><div class="item-desc">Thon, cheese</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">700 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 400 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">The Green</div><div class="item-desc">Salmon pané, concombre</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">900 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 800 DA</div></div></div>
+    <div class="menu-card reveal">
+      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
+      <div class="item-row-dual"><div><div class="item-name">Fresh Salmon</div><div class="item-desc">Saumon, avocat, cheese, sésame</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Fresh Dorade</div><div class="item-desc">Dorade, avocat, cheese, sésame</div></div><div class="dual-val">900</div><div class="dual-val">1 800</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Tiger Roll</div><div class="item-desc">Crevette, tempura, avocat, concombre, sésame</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">California Chicken</div><div class="item-desc">Poulet pané, tempura, concombre, sésame</div></div><div class="dual-val">700</div><div class="dual-val">1 400</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Tuna Roll</div><div class="item-desc">Thon cuit, avocat, concombre, sésame</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Salmon Cheese</div><div class="item-desc">Saumon, cheese, riz</div></div><div class="dual-val">900</div><div class="dual-val">1 800</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Avocado Cheese</div><div class="item-desc">Avocat, cheese, riz</div></div><div class="dual-val">700</div><div class="dual-val">1 400</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Tuna Cheese</div><div class="item-desc">Thon, cheese</div></div><div class="dual-val">700</div><div class="dual-val">1 400</div></div>
+      <div class="item-row-dual"><div><div class="item-name">The Green</div><div class="item-desc">Saumon pané, concombre</div></div><div class="dual-val">900</div><div class="dual-val">1 800</div></div>
     </div>
   </section>
 
-  <!-- CRUNCHY ROLL -->
+  <!-- CRUNCHY -->
   <section class="menu-section" id="crunchy">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🍤</span>
       <h2 class="section-title">Crunchy Roll</h2>
       <span class="section-sub">4 / 8 Pièces</span>
     </div>
-    <div class="menu-card">
-      <div class="table-header">
-        <span>Article</span><span>4 pcs</span><span>8 pcs</span>
-      </div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Salmon</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">950 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 900 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Crevette</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">900 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 800 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Chicken</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Dorade</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Poulpe</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Thon</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Chili Crunchy</div><div class="item-desc">Surimi haché, chili, concombre, mayo épicée</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
+    <div class="menu-card reveal">
+      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Salmon</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Crevette</div></div><div class="dual-val">900</div><div class="dual-val">1 800</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Chicken</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Dorade</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Poulpe</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Thon</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Chili Crunchy</div><div class="item-desc">Surimi haché, chili, concombre, mayo épicée</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
       <div class="base-note">Base : Concombre + Avocat</div>
     </div>
   </section>
 
   <!-- FUTOMAKI -->
   <section class="menu-section" id="futomaki">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🌯</span>
       <h2 class="section-title">Futomaki</h2>
       <span class="section-sub">4 / 8 Pièces</span>
     </div>
-    <div class="menu-card">
-      <div class="table-header">
-        <span>Article</span><span>4 pcs</span><span>8 pcs</span>
-      </div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Saumon</div><div class="item-desc">Salmon, avocat, cheese</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">1 000 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">2 000 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Chicken</div><div class="item-desc">Poulet pané, avocat, cheese</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Dorade</div><div class="item-desc">Dorade panée, avocat, cheese</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">850 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 900 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Thon</div><div class="item-desc">Thon pané, avocat, cheese</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">850 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 900 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Surimi</div><div class="item-desc">Surimi pané, avocat</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Futomaki</div><div class="item-desc">Salmon, surimi, avocat</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">1 000 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">2 000 DA</div></div></div>
+    <div class="menu-card reveal">
+      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Saumon</div><div class="item-desc">Saumon, avocat, cheese</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Chicken</div><div class="item-desc">Poulet pané, avocat, cheese</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Dorade</div><div class="item-desc">Dorade panée, avocat, cheese</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Thon</div><div class="item-desc">Thon pané, avocat, cheese</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Surimi</div><div class="item-desc">Surimi pané, avocat</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Futomaki</div><div class="item-desc">Saumon, surimi, avocat</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
     </div>
   </section>
 
-  <!-- SPECIAL ROLL -->
+  <!-- SPECIAL -->
   <section class="menu-section" id="special">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">⭐</span>
       <h2 class="section-title">Special Roll</h2>
       <span class="section-sub">4 / 8 Pièces</span>
     </div>
-    <div class="menu-card">
-      <div class="table-header">
-        <span>Article</span><span>4 pcs</span><span>8 pcs</span>
-      </div>
-      <div class="item-row-dual"><div><div class="item-name">Green Dragon</div><div class="item-desc">Crevette, tempura, concombre, avocat</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">950 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 900 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Rainbow</div><div class="item-desc">Salmon, avocat, surimi pané</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Manga</div><div class="item-desc">Dorade panée, avocat, mangue</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">850 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 900 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Planète Signature</div><div class="item-desc">Crevette, thon, dorade</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">850 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 900 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Beef Roll</div><div class="item-desc">Bœuf tataki, avocat, poivre, carottes sautées</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">800 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">1 600 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Salmon Roll</div><div class="item-desc">Salmon, concombre, cheese</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">1 000 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">2 000 DA</div></div></div>
-      <div class="item-row-dual"><div><div class="item-name">Spring</div><div class="item-desc">Poulet pané, laitue, avocat, papier de riz</div></div><div class="dual-prices"><div class="dual-price-label">4 pcs</div><div class="dual-price-val">1 000 DA</div></div><div class="dual-prices"><div class="dual-price-label">8 pcs</div><div class="dual-price-val">2 000 DA</div></div></div>
+    <div class="menu-card reveal">
+      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
+      <div class="item-row-dual"><div><div class="item-name">Green Dragon</div><div class="item-desc">Crevette, tempura, concombre, avocat</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Rainbow</div><div class="item-desc">Saumon, avocat, surimi pané</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Manga</div><div class="item-desc">Dorade panée, avocat, mangue</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Planète Signature</div><div class="item-desc">Crevette, thon, dorade</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Beef Roll</div><div class="item-desc">Bœuf tataki, avocat, poivre, carottes sautées</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Salmon Roll</div><div class="item-desc">Saumon, concombre, cheese</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Spring</div><div class="item-desc">Poulet pané, laitue, avocat, papier de riz</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
     </div>
   </section>
 
   <!-- MAKI -->
   <section class="menu-section" id="maki">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🍙</span>
       <h2 class="section-title">Maki</h2>
       <span class="section-sub">6 Pièces</span>
     </div>
-    <div class="menu-card">
-      <div class="item-row"><div><div class="item-name">Maki Salmon</div></div><div class="item-price">900 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Maki Dorade</div></div><div class="item-price">850 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Maki Thon</div></div><div class="item-price">800 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Maki Poulet</div></div><div class="item-price">800 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Maki Avocat</div></div><div class="item-price">800 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Maki Mangue</div></div><div class="item-price">800 DA</div></div>
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Maki Salmon</div><div class="item-price">900 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Maki Dorade</div><div class="item-price">850 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Maki Thon</div><div class="item-price">800 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Maki Poulet</div><div class="item-price">800 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Maki Avocat</div><div class="item-price">800 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Maki Mangue</div><div class="item-price">800 <small>DA</small></div></div>
+      </div>
     </div>
   </section>
 
-  <!-- CLUB SANDWICH -->
+  <!-- SANDWICH -->
   <section class="menu-section" id="sandwich">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🥪</span>
       <h2 class="section-title">Club Sandwich Crunchy</h2>
     </div>
-    <div class="menu-card">
-      <div class="item-row"><div><div class="item-name">Club Sandwich Beef</div></div><div class="item-price">900 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Club Sandwich Chicken</div></div><div class="item-price">1 200 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Club Sandwich Salmon</div></div><div class="item-price">1 500 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Club Sandwich Dorade</div></div><div class="item-price">1 400 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Club Sandwich Thon</div></div><div class="item-price">1 200 DA</div></div>
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Club Sandwich Beef</div><div class="item-price">900 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Club Sandwich Chicken</div><div class="item-price">1 200 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Club Sandwich Salmon</div><div class="item-price">1 500 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Club Sandwich Dorade</div><div class="item-price">1 400 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Club Sandwich Thon</div><div class="item-price">1 200 <small>DA</small></div></div>
+      </div>
     </div>
   </section>
 
-  <!-- SUSHI BURGER -->
+  <!-- BURGER -->
   <section class="menu-section" id="burger">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🍔</span>
       <h2 class="section-title">Sushi Burger</h2>
     </div>
-    <div class="menu-card">
-      <div class="item-row"><div><div class="item-name">Sushi Burger Saumon</div></div><div class="item-price">1 700 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Sushi Burger Dorade</div></div><div class="item-price">1 400 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Sushi Burger Chicken</div></div><div class="item-price">1 400 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Sushi Burger Thon</div></div><div class="item-price">1 300 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Sushi Burger Végé</div></div><div class="item-price">700 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Sushi Burger Mix</div></div><div class="item-price">2 200 DA</div></div>
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Sushi Burger Saumon</div><div class="item-price">1 700 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Sushi Burger Dorade</div><div class="item-price">1 400 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Sushi Burger Chicken</div><div class="item-price">1 400 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Sushi Burger Thon</div><div class="item-price">1 300 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Sushi Burger Végé</div><div class="item-price">700 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Sushi Burger Mix</div><div class="item-price">2 200 <small>DA</small></div></div>
+      </div>
     </div>
   </section>
 
   <!-- MIX BOX -->
   <section class="menu-section" id="mixbox">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🍱</span>
       <h2 class="section-title">Mix Box</h2>
+      <span class="section-sub">À Partager</span>
     </div>
-    <div class="menu-card">
-      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 08</span><span class="box-count">8 pcs</span></div><div class="item-price">1 600 DA</div></div><div class="box-contents">4 California Chicken + 4 Crunchy Chicken</div></div>
-      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 10</span><span class="box-count">10 pcs</span></div><div class="item-price">1 800 DA</div></div><div class="box-contents">6 Maki Avocat + 4 Crunchy Chicken</div></div>
-      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 13</span><span class="box-count">13 pcs</span></div><div class="item-price">2 500 DA</div></div><div class="box-contents">4 California Chicken + 5 Futomaki Crevette + 4 Crunchy Chicken</div></div>
-      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 18</span><span class="box-count">18 pcs</span></div><div class="item-price">3 500 DA</div></div><div class="box-contents">8 California Chicken + 6 Maki Avocat + 4 Tiger Roll</div></div>
-      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 23</span><span class="box-count">23 pcs</span></div><div class="item-price">4 500 DA</div></div><div class="box-contents">5 Futomaki + 4 Nigiri + 6 Maki + 8 Crunchy</div></div>
-      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 34</span><span class="box-count">34 pcs</span></div><div class="item-price">5 500 DA</div></div><div class="box-contents">16 Crunchy + 8 Green Dragon + 10 Futomaki</div></div>
-      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 54 Familles</span><span class="box-count">54 pcs</span></div><div class="item-price">7 800 DA</div></div><div class="box-contents">Grand assortiment familial</div></div>
+    <div class="menu-card reveal">
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 08</span><span class="box-count">8 pcs</span></div><div class="item-price">1 600 <small>DA</small></div></div><div class="box-contents">4 California Chicken + 4 Crunchy Chicken</div></div>
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 10</span><span class="box-count">10 pcs</span></div><div class="item-price">1 800 <small>DA</small></div></div><div class="box-contents">6 Maki Avocat + 4 Crunchy Chicken</div></div>
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 13</span><span class="box-count">13 pcs</span></div><div class="item-price">2 500 <small>DA</small></div></div><div class="box-contents">4 California Chicken + 5 Futomaki Crevette + 4 Crunchy Chicken</div></div>
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 18</span><span class="box-count">18 pcs</span></div><div class="item-price">3 500 <small>DA</small></div></div><div class="box-contents">8 California Chicken + 6 Maki Avocat + 4 Tiger Roll</div></div>
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 23</span><span class="box-count">23 pcs</span></div><div class="item-price">4 500 <small>DA</small></div></div><div class="box-contents">5 Futomaki + 4 Nigiri + 6 Maki + 8 Crunchy</div></div>
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 34</span><span class="box-count">34 pcs</span></div><div class="item-price">5 500 <small>DA</small></div></div><div class="box-contents">16 Crunchy + 8 Green Dragon + 10 Futomaki</div></div>
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 54 Familles</span><span class="box-count">54 pcs</span></div><div class="item-price">7 800 <small>DA</small></div></div><div class="box-contents">Grand assortiment familial</div></div>
     </div>
 
-    <div style="margin-top:16px">
-      <div class="section-header" style="margin-bottom:12px">
-        <span class="section-emoji">👨‍🍳</span>
-        <h2 class="section-title" style="font-size:1.2rem">Mix Box Special</h2>
-      </div>
-      <div class="menu-card">
-        <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 20</span><span class="box-count">20 pcs</span></div><div class="item-price">6 000 DA</div></div><div class="box-contents">4 Planète Signature + 4 Manga + 4 Spring + 4 Green Dragon</div></div>
-        <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 50</span><span class="box-count">50 pcs</span></div><div class="item-price">10 000 DA</div></div><div class="box-contents">Sélection spéciale du Chef</div></div>
-      </div>
+    <div class="sub-head reveal"><span class="se">👨‍🍳</span> Mix Box Special</div>
+    <div class="menu-card reveal">
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 20</span><span class="box-count">20 pcs</span></div><div class="item-price">6 000 <small>DA</small></div></div><div class="box-contents">4 Planète Signature + 4 Manga + 4 Spring + 4 Green Dragon</div></div>
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 50</span><span class="box-count">50 pcs</span></div><div class="item-price">10 000 <small>DA</small></div></div><div class="box-contents">Sélection spéciale du Chef</div></div>
     </div>
   </section>
 
   <!-- MAINS -->
   <section class="menu-section" id="mains">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🍽️</span>
       <h2 class="section-title">Plats Principaux</h2>
     </div>
-    <div class="menu-card">
-      <div class="item-row"><div><div class="item-name">Bœuf Sauté aux Oignons</div></div><div class="item-price">1 000 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Pavé de Saumon Laqué</div></div><div class="item-price">2 000 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Dorade Grillée</div></div><div class="item-price">1 200 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Chicken Crousty</div></div><div class="item-price">800 DA</div></div>
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Bœuf Sauté aux Oignons</div><div class="item-price">1 000 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Pavé de Saumon Laqué</div><div class="item-price">2 000 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Dorade Grillée</div><div class="item-price">1 200 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Chicken Crousty</div><div class="item-price">800 <small>DA</small></div></div>
+      </div>
     </div>
   </section>
 
   <!-- DESSERTS -->
   <section class="menu-section" id="desserts">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🍨</span>
       <h2 class="section-title">Desserts</h2>
     </div>
-    <div class="menu-card">
-      <div class="item-row"><div><div class="item-name">Maki Choco</div></div><div class="item-price">600 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Maki Choco Banane</div></div><div class="item-price">700 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Maki Choco Mangue</div></div><div class="item-price">800 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Maki Choco Banane-Mangue</div></div><div class="item-price">900 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Banane Tempura + Ice Cream</div></div><div class="item-price">600 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Cheese Boba</div></div><div class="item-price">600 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Mochi</div><div class="item-desc">Selon disponibilité</div></div><div class="item-price">400 DA</div></div>
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Maki Choco</div><div class="item-price">600 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Maki Choco Banane</div><div class="item-price">700 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Maki Choco Mangue</div><div class="item-price">800 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Maki Choco Banane-Mangue</div><div class="item-price">900 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Banane Tempura + Ice Cream</div><div class="item-price">600 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Cheese Boba</div><div class="item-price">600 <small>DA</small></div></div>
+        <div class="item-row"><div><div class="item-name">Mochi</div><div class="item-desc">Selon disponibilité</div></div><div class="item-price">400 <small>DA</small></div></div>
+      </div>
     </div>
   </section>
 
   <!-- DRINKS -->
   <section class="menu-section" id="drinks">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-emoji">🥤</span>
       <h2 class="section-title">Boissons Froides</h2>
     </div>
-    <div class="menu-card">
-      <div class="item-row"><div><div class="item-name">Canette 33cl</div></div><div class="item-price">100 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Jus 33cl</div></div><div class="item-price">80 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Soda 33cl</div></div><div class="item-price">70 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Soda 50cl</div></div><div class="item-price">100 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Soda 1L</div></div><div class="item-price">150 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Jus 1L</div></div><div class="item-price">200 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Eau Minérale (Grande)</div></div><div class="item-price">50 DA</div></div>
-      <div class="item-row"><div><div class="item-name">Eau Minérale (Petite)</div></div><div class="item-price">30 DA</div></div>
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Canette 33cl</div><div class="item-price">100 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Jus 33cl</div><div class="item-price">80 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Soda 33cl</div><div class="item-price">70 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Soda 50cl</div><div class="item-price">100 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Soda 1L</div><div class="item-price">150 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Jus 1L</div><div class="item-price">200 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Eau Minérale (Grande)</div><div class="item-price">50 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Eau Minérale (Petite)</div><div class="item-price">30 <small>DA</small></div></div>
+      </div>
     </div>
 
-    <div style="margin-top:16px">
-      <div class="section-header" style="margin-bottom:12px">
-        <span class="section-emoji">🍵</span>
-        <h2 class="section-title" style="font-size:1.2rem">Boissons Asiatiques</h2>
-      </div>
-      <div class="menu-card">
-        <div class="item-row"><div><div class="item-name">Matcha Tea</div></div><div class="item-price">400 DA</div></div>
-        <div class="item-row" style="border-bottom:none; padding-bottom:0">
-          <div style="flex:1"><div class="item-name">Bubble Tea</div></div><div class="item-price">600 DA</div>
-        </div>
-        <div class="flavor-title">Parfums Bubble Tea</div>
-        <div class="flavor-grid">
-          <span class="flavor-tag">🍓 Strawberry</span>
-          <span class="flavor-tag">🥭 Mango</span>
-          <span class="flavor-tag">🍑 Peach</span>
-          <span class="flavor-tag">🍋 Lemon</span>
-          <span class="flavor-tag">🌿 Passion Fruit</span>
-          <span class="flavor-tag">🍏 Green Apple</span>
-        </div>
+    <div class="sub-head reveal"><span class="se">🍵</span> Boissons Asiatiques</div>
+    <div class="menu-card reveal">
+      <div class="item-row"><div class="item-name">Matcha Tea</div><div class="item-price">400 <small>DA</small></div></div>
+      <div class="item-row"><div class="item-name">Bubble Tea</div><div class="item-price">600 <small>DA</small></div></div>
+      <div class="flavor-title">Parfums Bubble Tea</div>
+      <div class="flavor-grid">
+        <span class="flavor-tag">🍓 Strawberry</span>
+        <span class="flavor-tag">🥭 Mango</span>
+        <span class="flavor-tag">🍑 Peach</span>
+        <span class="flavor-tag">🍋 Lemon</span>
+        <span class="flavor-tag">🌿 Passion Fruit</span>
+        <span class="flavor-tag">🍏 Green Apple</span>
       </div>
     </div>
   </section>
 
 </main>
 
+<!-- ───── FOOTER ───── -->
 <footer>
-  <strong>Planète Sushi</strong> · Japanese · Thai Restaurant<br>
-  📍 BORDJ BOU ARRÉRIDJ , Algeria · 🍣 Fresh Daily
+  <div class="footer-inner">
+    <div class="footer-brand reveal">
+      <img src="dragon.png" alt="Planète Sushi">
+      <h3>Planète <span>Sushi</span></h3>
+    </div>
+    <div class="footer-col reveal">
+      <h4>Adresse</h4>
+      <p><strong>Bordj Bou Arréridj</strong><br>Algérie 🇩🇿</p>
+    </div>
+    <div class="footer-col reveal">
+      <h4>Cuisine</h4>
+      <p>Japanese · Thai<br><strong>🍣 Fresh Daily</strong><br>Sushi préparés chaque jour</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © <span id="year"></span> <strong>Planète Sushi</strong> · Japanese · Thai Restaurant
+  </div>
 </footer>
 
+<button class="to-top" id="toTop" aria-label="Retour en haut">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
 <script>
-  // ── YIN-YANG SVG (dynamically colored) ──
-  function renderYinYang(isDark) {
-    const light = isDark ? '#1a1a1a' : '#ffffff';
-    const dark  = isDark ? '#ffffff' : '#111111';
-    const svg = document.getElementById('yinSvg');
-    svg.innerHTML = `
-      <defs>
-        <clipPath id="left"><rect x="0" y="0" width="50" height="100"/></clipPath>
-        <clipPath id="right"><rect x="50" y="0" width="50" height="100"/></clipPath>
-      </defs>
-      <!-- full dark half -->
-      <circle cx="50" cy="50" r="48" fill="${dark}" clip-path="url(#left)"/>
-      <!-- full light half -->
-      <circle cx="50" cy="50" r="48" fill="${light}" clip-path="url(#right)"/>
-      <!-- top small dark half-circle (left side) -->
-      <circle cx="50" cy="25" r="24" fill="${dark}"/>
-      <!-- top small light half-circle -->
-      <circle cx="50" cy="25" r="24" fill="${light}" clip-path="url(#right)"/>
-      <!-- bottom small light half-circle -->
-      <circle cx="50" cy="75" r="24" fill="${light}"/>
-      <!-- bottom small dark half-circle -->
-      <circle cx="50" cy="75" r="24" fill="${dark}" clip-path="url(#right)"/>
-      <!-- small dot top -->
-      <circle cx="50" cy="25" r="8" fill="${light}"/>
-      <!-- small dot bottom -->
-      <circle cx="50" cy="75" r="8" fill="${dark}"/>
-      <!-- outline -->
-      <circle cx="50" cy="50" r="48" fill="none" stroke="${isDark ? '#333' : '#ccc'}" stroke-width="2"/>
-    `;
-  }
+  // ── THEME (persisted) ──
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('ps-theme');
+  if (saved) root.setAttribute('data-theme', saved);
+  else if (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme','dark');
 
-  let isDark = false;
-  renderYinYang(isDark);
-
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    isDark = !isDark;
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    renderYinYang(isDark);
+  toggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('ps-theme', next);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', next === 'dark' ? '#0c0b0a' : '#C0272D');
   });
+
+  // ── HEADER scroll state ──
+  const header = document.getElementById('header');
+  const toTop = document.getElementById('toTop');
+  const onScroll = () => {
+    const y = window.scrollY;
+    header.classList.toggle('scrolled', y > 40);
+    toTop.classList.toggle('show', y > 600);
+  };
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  toTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  // ── duplicate marquee for seamless loop ──
+  const track = document.getElementById('marqueeTrack');
+  track.innerHTML += track.innerHTML;
 
   // ── CATEGORY NAV ──
-  const catBtns = document.querySelectorAll('.cat-btn');
-  catBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      catBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const target = document.getElementById(btn.dataset.target);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
+  const catBtns = [...document.querySelectorAll('.cat-btn')];
+  catBtns.forEach(btn => btn.addEventListener('click', () => {
+    const t = document.getElementById(btn.dataset.target);
+    if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+  }));
 
-  // ── ACTIVE NAV ON SCROLL ──
-  const sections = document.querySelectorAll('.menu-section');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        catBtns.forEach(b => {
-          b.classList.toggle('active', b.dataset.target === id);
-        });
-        // scroll active nav button into view
-        const activeBtn = document.querySelector(`.cat-btn[data-target="${id}"]`);
-        if (activeBtn) activeBtn.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+  // ── SCROLL SPY ──
+  const sections = [...document.querySelectorAll('.menu-section')];
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        catBtns.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+        const active = document.querySelector(`.cat-btn[data-target="${id}"]`);
+        if (active) active.scrollIntoView({ inline:'center', block:'nearest', behavior:'smooth' });
       }
     });
-  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+  }, { rootMargin:'-35% 0px -55% 0px', threshold:0 });
+  sections.forEach(s => spy.observe(s));
 
-  sections.forEach(s => observer.observe(s));
+  // ── REVEAL ON SCROLL ──
+  const revs = [...document.querySelectorAll('.reveal')];
+  const ro = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { rootMargin:'0px 0px -8% 0px', threshold:0.08 });
+  revs.forEach(el => ro.observe(el));
+
+  // ── HERO parallax (glow only — keeps the dragon's float animation intact) ──
+  const glow = document.querySelector('.hero-glow');
+  if (glow && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) glow.style.opacity = String(Math.max(0, 0.8 - y / 600));
+    }, { passive:true });
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
