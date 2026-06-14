@@ -109,7 +109,7 @@
     filter:drop-shadow(0 2px 6px var(--glow));
     transition:transform .5s cubic-bezier(.2,.8,.2,1);
   }
-  .brand-mark img { width:100%; height:100%; object-fit:contain; }
+  .brand-mark img, .brand-mark svg { width:100%; height:100%; object-fit:contain; display:block; overflow:visible; }
   .brand:hover .brand-mark { transform:rotate(-8deg) scale(1.06); }
   .brand-text h1 {
     font-family:'Montserrat',sans-serif; font-weight:900;
@@ -192,8 +192,8 @@
   [data-theme="dark"] .hl-stick { stroke:#0c0b0a; }
 
   /* chopsticks: gentle sway of the pair + a subtle pinch of the upper stick */
-  .hl-sticks    { transform-box:fill-box; transform-origin:18% 82%; animation:stickSway 3.4s ease-in-out infinite; }
-  .hl-stick-top { transform-box:fill-box; transform-origin:62% 50%; animation:stickPinch 1.7s ease-in-out infinite; }
+  .hero-logo .hl-sticks    { transform-box:fill-box; transform-origin:18% 82%; animation:stickSway 3.4s ease-in-out infinite; }
+  .hero-logo .hl-stick-top { transform-box:fill-box; transform-origin:62% 50%; animation:stickPinch 1.7s ease-in-out infinite; }
 
   @keyframes logoIn { to{opacity:1; transform:scale(1) rotate(0);} }
   @keyframes stickSway  { 0%,100%{transform:rotate(-5deg);} 50%{transform:rotate(2.5deg);} }
@@ -503,7 +503,7 @@
   .footer-slogan { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.95rem; color:var(--muted); margin-top:2px; }
   .footer-brand { display:flex; flex-direction:column; align-items:center; gap:14px; }
   @media(min-width:760px){ .footer-brand{ align-items:flex-start; } }
-  .footer-brand img { width:70px; height:70px; object-fit:contain; filter:drop-shadow(0 4px 12px var(--glow)); }
+  .footer-brand img, .footer-brand svg { width:70px; height:70px; object-fit:contain; overflow:visible; filter:drop-shadow(0 4px 12px var(--glow)); }
   .footer-brand h3 { font-family:'Montserrat'; font-weight:900; letter-spacing:.14em; text-transform:uppercase; font-size:1rem; }
   .footer-brand h3 span { color:var(--red); }
   .footer-col h4 { font-size:.6rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--red); margin-bottom:12px; }
@@ -570,7 +570,14 @@
 <!-- ───── HEADER ───── -->
 <header id="header">
   <a class="brand" href="#top" aria-label="Planète Sushi accueil">
-    <span class="brand-mark"><img src="dragon.png" alt="Planète Sushi"></span>
+    <span class="brand-mark" role="img" aria-label="Planète Sushi">
+      <svg viewBox="0 0 400 400" aria-hidden="true">
+        <circle class="hl-plate" cx="196" cy="214" r="116"/>
+        <circle class="hl-sun" cx="166" cy="214" r="74"/>
+        <rect class="hl-stick" x="84" y="208" width="266" height="13" rx="6.5" transform="rotate(-28 220 214)"/>
+        <rect class="hl-stick" x="84" y="209" width="266" height="11" rx="5.5" transform="rotate(-19 220 214)"/>
+      </svg>
+    </span>
     <span class="brand-text">
       <h1>Planète <span>Sushi</span></h1>
       <p>Japanese · Thai</p>
@@ -799,13 +806,19 @@
         <div class="card-dish"><picture><source srcset="images/chicken.webp" type="image/webp"><img src="images/chicken.png?v=opt" alt="Chicken Crousty — Planète Sushi" loading="lazy" onerror="this.closest('.card-dish')?.remove()"></picture></div>
         <div class="dish-foot"><span class="dish-name">Chicken Crousty</span><span class="item-price">800 <small>DA</small></span></div>
       </div>
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><picture><source srcset="images/poulet.webp" type="image/webp"><img src="images/poulet.png" alt="Poulet Pané — Planète Sushi" loading="lazy" onerror="this.closest('.card-dish')?.remove()"></picture></div>
+        <div class="dish-foot"><span class="dish-name">Poulet Pané</span><span class="item-price">1 000 <small>DA</small></span></div>
+      </div>
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><picture><source srcset="images/crevette.webp" type="image/webp"><img src="images/crevette.png" alt="Crevette Tempura — Planète Sushi" loading="lazy" onerror="this.closest('.card-dish')?.remove()"></picture></div>
+        <div class="dish-foot"><span class="dish-name">Crevette Tempura ×6</span><span class="item-price">1 500 <small>DA</small></span></div>
+      </div>
     </div>
 
     <div class="menu-card reveal">
       <div class="item-grid">
-        <div class="item-row"><div class="item-name">Poulet Pané</div><div class="item-price">1 000 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Dorade Pané</div><div class="item-price">1 200 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Crevette Tempura ×6</div><div class="item-price">1 500 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Poulpe Grillé</div><div class="item-price">1 800 <small>DA</small></div></div>
       </div>
       <div class="base-note">Sauce au choix : Chilli · Mayo épicée · Aigre douce</div>
@@ -1112,7 +1125,12 @@
 <footer id="contact">
   <div class="footer-inner">
     <div class="footer-brand reveal">
-      <img src="dragon.png" alt="Planète Sushi">
+      <svg viewBox="0 0 400 400" role="img" aria-label="Planète Sushi">
+        <circle class="hl-plate" cx="196" cy="214" r="116"/>
+        <circle class="hl-sun" cx="166" cy="214" r="74"/>
+        <rect class="hl-stick" x="84" y="208" width="266" height="13" rx="6.5" transform="rotate(-28 220 214)"/>
+        <rect class="hl-stick" x="84" y="209" width="266" height="11" rx="5.5" transform="rotate(-19 220 214)"/>
+      </svg>
       <h3>Planète <span>Sushi</span></h3>
       <p class="footer-slogan">Voyage gustatif au cœur de l'Asie</p>
     </div>
