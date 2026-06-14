@@ -142,7 +142,10 @@
   }
   .yy-toggle:hover::after { opacity:1; }
   .yy-toggle svg { width:100%; height:100%; display:block;
-    filter:drop-shadow(0 3px 8px rgba(0,0,0,.25)); }
+    filter:drop-shadow(0 3px 8px rgba(0,0,0,.25));
+    /* spin once on load/reload so people notice it's a button */
+    animation:yySpin 1.15s cubic-bezier(.34,.08,.2,1) .35s 1 both; }
+  @keyframes yySpin { 0%{transform:rotate(0) scale(.85);} 70%{transform:rotate(370deg) scale(1.06);} 100%{transform:rotate(360deg) scale(1);} }
   html[data-theme="dark"] .yy-toggle { transform:rotate(180deg); }
 
   .yy-rim { stroke:var(--red); stroke-width:2.4; fill:none; opacity:.9; }
