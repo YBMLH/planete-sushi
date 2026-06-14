@@ -390,6 +390,7 @@
 
   /* featured dish cards — each plat with its own photo */
   .dish-grid { display:grid; grid-template-columns:1fr; gap:18px; margin-bottom:18px; }
+  .menu-card + .dish-grid { margin-top:18px; }   /* space when a card sits above the grid (e.g. Maki Choco → Banane/Mochi) */
   @media(min-width:600px){ .dish-grid{ grid-template-columns:1fr 1fr; } }
   .dish-card { display:flex; flex-direction:column; }
   .dish-card .card-dish { flex:1; align-items:center; }
