@@ -358,6 +358,9 @@
     background:radial-gradient(ellipse at center, var(--glow), transparent 70%);
     filter:blur(5px);
   }
+  /* <picture> wrapper must not create a box, so the img stays the flex child and
+     its width:min(64%,240px) resolves against the card (keeps the dish centered) */
+  .card-dish picture { display:contents; }
   .card-dish img {
     position:relative; z-index:1;
     width:min(64%,240px); height:auto; display:block;
