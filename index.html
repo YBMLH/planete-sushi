@@ -503,6 +503,25 @@
   .footer-col h4 { font-size:.6rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--red); margin-bottom:12px; }
   .footer-col p { font-size:.82rem; color:var(--muted); line-height:1.9; }
   .footer-col p strong { color:var(--text); font-weight:600; }
+
+  /* contact / social pill buttons */
+  .contact-btns { display:flex; flex-direction:column; gap:10px; align-items:center; }
+  @media(min-width:760px){ .contact-btns{ align-items:stretch; } }
+  .contact-btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    padding:12px 18px; border-radius:50px;
+    background:var(--surface-2); border:1px solid var(--border);
+    color:var(--text); text-decoration:none; font-weight:700; font-size:.82rem;
+    letter-spacing:.01em; box-shadow:var(--shadow-sm); cursor:pointer;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), background .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease;
+  }
+  @media(min-width:760px){ .contact-btn{ justify-content:flex-start; } }
+  .contact-btn .ico { font-size:1.05rem; line-height:1; }
+  .contact-btn:hover, .contact-btn:focus-visible {
+    transform:translateY(-2px); background:var(--red); color:#fff; border-color:var(--red);
+    box-shadow:0 12px 26px -10px var(--glow);
+  }
+  .contact-fresh { margin-top:12px; color:var(--red); font-weight:700; font-size:.78rem; letter-spacing:.06em; }
   .footer-bottom { border-top:1px solid var(--border); padding:18px 20px; text-align:center; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
   .footer-bottom strong { color:var(--red); }
 
@@ -580,6 +599,7 @@
   <div class="hero-cta">
     <a href="#salades" class="btn btn-primary">Découvrir le Menu</a>
     <a href="#drinks" class="btn btn-ghost">Boissons &amp; Bubble Tea</a>
+    <a href="#contact" class="btn btn-ghost">📞 Nous Contacter</a>
   </div>
   <div class="scroll-cue"><span class="mouse"></span><span>Défiler</span></div>
 </section>
@@ -659,7 +679,7 @@
       <span class="section-sub">Vermicelle · Légumes</span>
     </div>
     <div class="menu-card reveal">
-      <div class="card-dish"><picture><source srcset="images/printemps.webp" type="image/webp"><img src="images/printemps.png?v=opt" alt="Rouleaux de Printemps — Planète Sushi" loading="lazy" onerror="this.closest('.card-dish')?.remove()"></picture></div>
+      <div class="card-dish"><picture><source srcset="images/printemps-2.webp" type="image/webp"><img src="images/printemps-2.png" alt="Rouleaux de Printemps — Planète Sushi" loading="lazy" onerror="this.closest('.card-dish')?.remove()"></picture></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Végétarien</div><div class="item-price">500 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Poulet</div><div class="item-price">600 <small>DA</small></div></div>
@@ -1068,7 +1088,7 @@
 </main>
 
 <!-- ───── FOOTER ───── -->
-<footer>
+<footer id="contact">
   <div class="footer-inner">
     <div class="footer-brand reveal">
       <img src="dragon.png" alt="Planète Sushi">
@@ -1077,18 +1097,25 @@
     </div>
     <div class="footer-col reveal">
       <h4>Commander</h4>
-      <p><a href="tel:0665065697"><strong>0665 06 56 97</strong></a><br>
-         <a href="tel:0559746777"><strong>0559 74 67 77</strong></a></p>
+      <div class="contact-btns">
+        <a class="contact-btn" href="tel:0665065697"><span class="ico">📞</span> 0665 06 56 97</a>
+        <a class="contact-btn" href="tel:0559746777"><span class="ico">📞</span> 0559 74 67 77</a>
+      </div>
     </div>
     <div class="footer-col reveal">
       <h4>Réseaux</h4>
-      <p><a href="https://www.instagram.com/planete.sushi_dz" target="_blank" rel="noopener">📸 Instagram</a><br>
-         <a href="https://www.tiktok.com/@plante.sushi_dz" target="_blank" rel="noopener">🎵 TikTok</a><br>
-         <a href="https://www.facebook.com/share/1HogiHUspu/" target="_blank" rel="noopener">📘 Facebook</a></p>
+      <div class="contact-btns">
+        <a class="contact-btn" href="https://www.instagram.com/planete.sushi_dz" target="_blank" rel="noopener"><span class="ico">📸</span> Instagram</a>
+        <a class="contact-btn" href="https://www.tiktok.com/@plante.sushi_dz" target="_blank" rel="noopener"><span class="ico">🎵</span> TikTok</a>
+        <a class="contact-btn" href="https://www.facebook.com/share/1HogiHUspu/" target="_blank" rel="noopener"><span class="ico">📘</span> Facebook</a>
+      </div>
     </div>
     <div class="footer-col reveal">
       <h4>Adresse</h4>
-      <p><a href="https://maps.app.goo.gl/ms4EwEeRVt8C9ZTp9" target="_blank" rel="noopener">📍 <strong>Bordj Bou Arréridj</strong><br>Algérie 🇩🇿</a><br><span style="color:var(--red);font-weight:600">🍣 Fresh Daily</span></p>
+      <div class="contact-btns">
+        <a class="contact-btn" href="https://maps.app.goo.gl/ms4EwEeRVt8C9ZTp9" target="_blank" rel="noopener"><span class="ico">📍</span> Bordj Bou Arréridj</a>
+      </div>
+      <p class="contact-fresh">🍣 Fresh Daily · Algérie 🇩🇿</p>
     </div>
   </div>
   <div class="footer-bottom">
