@@ -335,6 +335,45 @@
     transition:background .5s ease,border-color .5s ease;
   }
 
+  /* floating dish photo (transparent cut-out) at top of the card */
+  .card-dish {
+    position:relative; display:flex; justify-content:center;
+    padding:30px 16px 12px; margin:0;
+  }
+  .card-dish::before {            /* soft glow halo behind the dish */
+    content:""; position:absolute; top:24px; left:50%; transform:translateX(-50%);
+    width:min(66%,260px); aspect-ratio:1/0.82; z-index:0;
+    background:radial-gradient(ellipse at center, var(--glow), transparent 70%);
+    filter:blur(5px);
+  }
+  .card-dish img {
+    position:relative; z-index:1;
+    width:min(64%,240px); height:auto; display:block;
+    /* layered, shape-aware shadow → round plates read as floating with a soft shadow beneath */
+    filter:
+      drop-shadow(0 26px 20px rgba(0,0,0,0.30))
+      drop-shadow(0 10px 10px rgba(0,0,0,0.18));
+    transition:transform .6s cubic-bezier(.2,.8,.2,1), filter .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .menu-card:hover .card-dish img {
+    transform:translateY(-6px) scale(1.05) rotate(-2deg);
+    filter:
+      drop-shadow(0 34px 26px rgba(0,0,0,0.34))
+      drop-shadow(0 12px 12px rgba(0,0,0,0.20));
+  }
+  @media(max-width:620px){ .card-dish img{ width:min(72%,210px); } }
+
+  /* featured dish cards — each plat with its own photo */
+  .dish-grid { display:grid; grid-template-columns:1fr; gap:18px; margin-bottom:18px; }
+  @media(min-width:600px){ .dish-grid{ grid-template-columns:1fr 1fr; } }
+  .dish-card { display:flex; flex-direction:column; }
+  .dish-card .card-dish { flex:1; align-items:center; }
+  .dish-foot {
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:4px 20px 20px; margin-top:auto;
+  }
+  .dish-foot .dish-name { font-size:.95rem; font-weight:600; color:var(--text); line-height:1.25; transition:color .5s ease; }
+
   /* grid of simple-price items on wider screens */
   .item-grid { display:grid; grid-template-columns:1fr; }
   @media(min-width:720px){ .item-grid{ grid-template-columns:1fr 1fr; } .item-grid .item-row:nth-child(odd){ border-right:1px solid var(--border);} }
@@ -426,7 +465,10 @@
   /* ───────────────── FOOTER ───────────────── */
   footer { position:relative; z-index:1; border-top:1px solid var(--border); background:var(--surface); transition:background .5s ease,border-color .5s ease; }
   .footer-inner { max-width:1080px; margin:0 auto; padding:clamp(40px,7vw,64px) clamp(20px,5vw,40px) 30px; display:grid; gap:30px; grid-template-columns:1fr; text-align:center; }
-  @media(min-width:760px){ .footer-inner{ grid-template-columns:1fr 1fr 1fr; text-align:left; align-items:center; } }
+  @media(min-width:760px){ .footer-inner{ grid-template-columns:1.4fr 1fr 1fr 1fr; text-align:left; align-items:start; } }
+  .footer-col a { color:var(--muted); text-decoration:none; transition:color .2s ease; }
+  .footer-col a:hover { color:var(--red); }
+  .footer-slogan { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.95rem; color:var(--muted); margin-top:2px; }
   .footer-brand { display:flex; flex-direction:column; align-items:center; gap:14px; }
   @media(min-width:760px){ .footer-brand{ align-items:flex-start; } }
   .footer-brand img { width:70px; height:70px; object-fit:contain; filter:drop-shadow(0 4px 12px var(--glow)); }
@@ -494,41 +536,49 @@
   <p class="hero-kanji">鮨 · Planète Sushi · 寿司</p>
   <div class="hero-dragon" role="img" aria-label="Dragon rouge Planète Sushi"></div>
   <h2><span class="l1">Planète</span><span class="l2">Sushi</span></h2>
-  <p class="hero-tag">L'art du sushi, frais chaque jour — une touche japonaise &amp; thaï au cœur de Bordj Bou Arréridj.</p>
+  <p class="hero-tag">Voyage gustatif au cœur de l'Asie — sushi frais préparés chaque jour à Bordj Bou Arréridj.</p>
   <div class="hero-meta">
     <span>🍣 Fresh Daily</span><span class="dot"></span>
     <span>📍 Bordj Bou Arréridj</span><span class="dot"></span>
     <span>🇯🇵 Japanese · Thai</span>
   </div>
   <div class="hero-cta">
-    <a href="#chirashi" class="btn btn-primary">Découvrir le Menu</a>
+    <a href="#salades" class="btn btn-primary">Découvrir le Menu</a>
     <a href="#drinks" class="btn btn-ghost">Boissons &amp; Bubble Tea</a>
   </div>
-  <div class="scroll-cue"><span class="mouse"></span><span>Scroll</span></div>
+  <div class="scroll-cue"><span class="mouse"></span><span>Défiler</span></div>
 </section>
 
 <!-- ───── MARQUEE ───── -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track" id="marqueeTrack">
-    <span>Sushi Frais</span><span>Chirashi</span><span>California Roll</span><span>Crunchy</span><span>Futomaki</span><span>Poké Bowl</span><span>Sushi Burger</span><span>Bubble Tea</span><span>Mix Box Famille</span>
+    <span>Salades</span><span>Gyoza</span><span>Ramen</span><span>Nouilles</span><span>Brochettes Yakitori</span><span>Riz Thaï</span><span>Chirashi</span><span>California</span><span>Crunchy</span><span>Futomaki</span><span>Sushi Burger</span><span>Bubble Tea</span><span>Mix Box Famille</span>
   </div>
 </div>
 
 <!-- ───── NAV ───── -->
 <nav class="catnav" aria-label="Catégories du menu">
   <div class="catnav-inner" id="catNav">
-    <button class="cat-btn active" data-target="chirashi">Chirashi</button>
+    <button class="cat-btn active" data-target="salades">Salades</button>
+    <button class="cat-btn" data-target="gyoza">Gyoza</button>
+    <button class="cat-btn" data-target="printemps">Printemps</button>
+    <button class="cat-btn" data-target="nems">Nems</button>
+    <button class="cat-btn" data-target="ramen">Ramen</button>
+    <button class="cat-btn" data-target="nouilles">Nouilles</button>
+    <button class="cat-btn" data-target="yakitori">Yakitori</button>
+    <button class="cat-btn" data-target="plats">Plats</button>
+    <button class="cat-btn" data-target="riz">Riz Thaï</button>
+    <button class="cat-btn" data-target="chirashi">Chirashi</button>
     <button class="cat-btn" data-target="nigiri">Nigiri</button>
-    <button class="cat-btn" data-target="poke">Poké Bowl</button>
+    <button class="cat-btn" data-target="poke">Poké</button>
     <button class="cat-btn" data-target="california">California</button>
-    <button class="cat-btn" data-target="crunchy">Crunchy</button>
-    <button class="cat-btn" data-target="futomaki">Futomaki</button>
-    <button class="cat-btn" data-target="special">Special</button>
     <button class="cat-btn" data-target="maki">Maki</button>
+    <button class="cat-btn" data-target="special">Special</button>
+    <button class="cat-btn" data-target="futomaki">Futomaki</button>
+    <button class="cat-btn" data-target="crunchy">Crunchy</button>
     <button class="cat-btn" data-target="sandwich">Sandwich</button>
     <button class="cat-btn" data-target="burger">Burger</button>
     <button class="cat-btn" data-target="mixbox">Mix Box</button>
-    <button class="cat-btn" data-target="mains">Plats</button>
     <button class="cat-btn" data-target="desserts">Desserts</button>
     <button class="cat-btn" data-target="drinks">Boissons</button>
   </div>
@@ -536,7 +586,173 @@
 
 <main>
 
-  <!-- CHIRASHI -->
+  <section class="menu-section" id="salades">
+    <div class="section-header reveal">
+      <span class="section-emoji">🥬</span>
+      <h2 class="section-title">Salades</h2>
+      <span class="section-sub">Fraîcheur</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/salades.png" alt="Salades — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Salade Planète Sushi</div><div class="item-price">1 200 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Salade de Poulpe</div><div class="item-price">1 400 <small>DA</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="gyoza">
+    <div class="section-header reveal">
+      <span class="section-emoji">🥟</span>
+      <h2 class="section-title">Gyoza</h2>
+      <span class="section-sub">Assaisonné</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/gyoza.png" alt="Gyoza — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Gyoza Poulet</div><div class="item-price">900 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Gyoza Viande</div><div class="item-price">1 000 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Gyoza Crevette</div><div class="item-price">1 200 <small>DA</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="printemps">
+    <div class="section-header reveal">
+      <span class="section-emoji">🌿</span>
+      <h2 class="section-title">Rouleaux de Printemps</h2>
+      <span class="section-sub">Vermicelle · Légumes</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/printemps.png" alt="Rouleaux de Printemps — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Végétarien</div><div class="item-price">500 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Poulet</div><div class="item-price">600 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Crevette</div><div class="item-price">700 <small>DA</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="nems">
+    <div class="section-header reveal">
+      <span class="section-emoji">🥢</span>
+      <h2 class="section-title">Nems</h2>
+      <span class="section-sub">Croustillants</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/nems.png" alt="Nems — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Végétarien</div><div class="item-price">500 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Poulet</div><div class="item-price">700 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Crevette</div><div class="item-price">800 <small>DA</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="ramen">
+    <div class="section-header reveal">
+      <span class="section-emoji">🍜</span>
+      <h2 class="section-title">Ramen</h2>
+      <span class="section-sub">Bol Chaud</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/ramen.png" alt="Ramen — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Ramen Poulet</div><div class="item-price">1 200 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Ramen Bœuf</div><div class="item-price">1 400 <small>DA</small></div></div>
+      </div>
+      <div class="base-note">Nouille de ramen, champignons noirs, algues &amp; œuf mariné (ajitama)</div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="nouilles">
+    <div class="section-header reveal">
+      <span class="section-emoji">🍝</span>
+      <h2 class="section-title">Nouilles</h2>
+      <span class="section-sub">Nouilles de Blé</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/nouilles.png" alt="Nouilles — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Nouilles Poulet</div><div class="item-price">1 200 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Nouilles Bœuf</div><div class="item-price">1 300 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Nouilles Crevette</div><div class="item-price">1 500 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Nouilles Saumon</div><div class="item-price">1 800 <small>DA</small></div></div>
+      </div>
+      <div class="base-note">Base : nouilles de blé &amp; légumes</div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="yakitori">
+    <div class="section-header reveal">
+      <span class="section-emoji">🍢</span>
+      <h2 class="section-title">Brochettes Yakitori</h2>
+      <span class="section-sub">3 Pièces</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/yakitori.png" alt="Brochettes Yakitori — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Yakitori Bœuf Fromage</div><div class="item-price">1 000 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Yakitori Poulet</div><div class="item-price">800 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Yakitori Thon</div><div class="item-price">800 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Yakitori Saumon</div><div class="item-price">1 000 <small>DA</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="plats">
+    <div class="section-header reveal">
+      <span class="section-emoji">🍽️</span>
+      <h2 class="section-title">Plats</h2>
+      <span class="section-sub">Sauce au Choix</span>
+    </div>
+    <div class="dish-grid">
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><img src="images/boeuf.png" alt="Bœuf Sauté aux Oignons — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+        <div class="dish-foot"><span class="dish-name">Bœuf Sauté aux Oignons</span><span class="item-price">1 000 <small>DA</small></span></div>
+      </div>
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><img src="images/saumon.png" alt="Pavé de Saumon Laqué — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+        <div class="dish-foot"><span class="dish-name">Pavé de Saumon Laqué</span><span class="item-price">2 000 <small>DA</small></span></div>
+      </div>
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><img src="images/dorade.png" alt="Dorade Grillée — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+        <div class="dish-foot"><span class="dish-name">Dorade Grillée</span><span class="item-price">1 200 <small>DA</small></span></div>
+      </div>
+      <div class="menu-card dish-card reveal">
+        <div class="card-dish"><img src="images/chicken.png" alt="Chicken Crousty — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+        <div class="dish-foot"><span class="dish-name">Chicken Crousty</span><span class="item-price">800 <small>DA</small></span></div>
+      </div>
+    </div>
+
+    <div class="menu-card reveal">
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Poulet Pané</div><div class="item-price">1 000 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Dorade Pané</div><div class="item-price">1 200 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Crevette Tempura ×6</div><div class="item-price">1 500 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Poulpe Grillé</div><div class="item-price">1 800 <small>DA</small></div></div>
+      </div>
+      <div class="base-note">Sauce au choix : Chilli · Mayo épicée · Aigre douce</div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="riz">
+    <div class="section-header reveal">
+      <span class="section-emoji">🍚</span>
+      <h2 class="section-title">Riz Thaï</h2>
+      <span class="section-sub">Wok Thaï</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/riz.png" alt="Riz Thaï — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Riz Thaï Poulet</div><div class="item-price">900 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Riz Thaï Crevette</div><div class="item-price">1 100 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Riz Thaï Bœuf</div><div class="item-price">1 000 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Riz Thaï Saumon</div><div class="item-price">1 200 <small>DA</small></div></div>
+      </div>
+    </div>
+  </section>
+
   <section class="menu-section" id="chirashi">
     <div class="section-header reveal">
       <span class="section-emoji">🍣</span>
@@ -544,6 +760,7 @@
       <span class="section-sub">Riz · Avocat · Poisson</span>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/chirashi.png" alt="Chirashi — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Chirashi Saumon</div><div class="item-price">2 000 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Chirashi Dorade</div><div class="item-price">1 800 <small>DA</small></div></div>
@@ -553,7 +770,6 @@
     </div>
   </section>
 
-  <!-- NIGIRI -->
   <section class="menu-section" id="nigiri">
     <div class="section-header reveal">
       <span class="section-emoji">🍣</span>
@@ -561,6 +777,7 @@
       <span class="section-sub">2 Pièces</span>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/nigiri.png" alt="Nigiri — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Saumon</div><div class="item-price">500 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Dorade</div><div class="item-price">400 <small>DA</small></div></div>
@@ -570,7 +787,6 @@
     </div>
   </section>
 
-  <!-- POKE BOWL -->
   <section class="menu-section" id="poke">
     <div class="section-header reveal">
       <span class="section-emoji">🥗</span>
@@ -578,6 +794,7 @@
       <span class="section-sub">Riz · Légumes · Avocat</span>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/poke.png" alt="Poké Bowl — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Végétarien</div><div class="item-price">700 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Saumon</div><div class="item-price">1 600 <small>DA</small></div></div>
@@ -589,7 +806,6 @@
     </div>
   </section>
 
-  <!-- CALIFORNIA -->
   <section class="menu-section" id="california">
     <div class="section-header reveal">
       <span class="section-emoji">🍱</span>
@@ -597,6 +813,7 @@
       <span class="section-sub">4 / 8 Pièces</span>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/california.png" alt="California Roll — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
       <div class="item-row-dual"><div><div class="item-name">Fresh Salmon</div><div class="item-desc">Saumon, avocat, cheese, sésame</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
       <div class="item-row-dual"><div><div class="item-name">Fresh Dorade</div><div class="item-desc">Dorade, avocat, cheese, sésame</div></div><div class="dual-val">900</div><div class="dual-val">1 800</div></div>
@@ -610,64 +827,6 @@
     </div>
   </section>
 
-  <!-- CRUNCHY -->
-  <section class="menu-section" id="crunchy">
-    <div class="section-header reveal">
-      <span class="section-emoji">🍤</span>
-      <h2 class="section-title">Crunchy Roll</h2>
-      <span class="section-sub">4 / 8 Pièces</span>
-    </div>
-    <div class="menu-card reveal">
-      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Salmon</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Crevette</div></div><div class="dual-val">900</div><div class="dual-val">1 800</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Chicken</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Dorade</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Poulpe</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Thon</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Chili Crunchy</div><div class="item-desc">Surimi haché, chili, concombre, mayo épicée</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
-      <div class="base-note">Base : Concombre + Avocat</div>
-    </div>
-  </section>
-
-  <!-- FUTOMAKI -->
-  <section class="menu-section" id="futomaki">
-    <div class="section-header reveal">
-      <span class="section-emoji">🌯</span>
-      <h2 class="section-title">Futomaki</h2>
-      <span class="section-sub">4 / 8 Pièces</span>
-    </div>
-    <div class="menu-card reveal">
-      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Saumon</div><div class="item-desc">Saumon, avocat, cheese</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Chicken</div><div class="item-desc">Poulet pané, avocat, cheese</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Dorade</div><div class="item-desc">Dorade panée, avocat, cheese</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Thon</div><div class="item-desc">Thon pané, avocat, cheese</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Futomaki Surimi</div><div class="item-desc">Surimi pané, avocat</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Crunchy Futomaki</div><div class="item-desc">Saumon, surimi, avocat</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
-    </div>
-  </section>
-
-  <!-- SPECIAL -->
-  <section class="menu-section" id="special">
-    <div class="section-header reveal">
-      <span class="section-emoji">⭐</span>
-      <h2 class="section-title">Special Roll</h2>
-      <span class="section-sub">4 / 8 Pièces</span>
-    </div>
-    <div class="menu-card reveal">
-      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
-      <div class="item-row-dual"><div><div class="item-name">Green Dragon</div><div class="item-desc">Crevette, tempura, concombre, avocat</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Rainbow</div><div class="item-desc">Saumon, avocat, surimi pané</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Manga</div><div class="item-desc">Dorade panée, avocat, mangue</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Planète Signature</div><div class="item-desc">Crevette, thon, dorade</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Beef Roll</div><div class="item-desc">Bœuf tataki, avocat, poivre, carottes sautées</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Salmon Roll</div><div class="item-desc">Saumon, concombre, cheese</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
-      <div class="item-row-dual"><div><div class="item-name">Spring</div><div class="item-desc">Poulet pané, laitue, avocat, papier de riz</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
-    </div>
-  </section>
-
-  <!-- MAKI -->
   <section class="menu-section" id="maki">
     <div class="section-header reveal">
       <span class="section-emoji">🍙</span>
@@ -675,6 +834,7 @@
       <span class="section-sub">6 Pièces</span>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/maki.png" alt="Maki — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Maki Salmon</div><div class="item-price">900 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Maki Dorade</div><div class="item-price">850 <small>DA</small></div></div>
@@ -686,13 +846,71 @@
     </div>
   </section>
 
-  <!-- SANDWICH -->
+  <section class="menu-section" id="special">
+    <div class="section-header reveal">
+      <span class="section-emoji">⭐</span>
+      <h2 class="section-title">Special Roll</h2>
+      <span class="section-sub">4 / 8 Pièces</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/special.png" alt="Special Roll — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
+      <div class="item-row-dual"><div><div class="item-name">Green Dragon</div><div class="item-desc">Crevette, tempura, concombre, avocat</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Rainbow</div><div class="item-desc">Saumon, avocat, surimi pané</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Manga</div><div class="item-desc">Dorade panée, avocat, mangue</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Planète Signature</div><div class="item-desc">Crevette, thon, dorade</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Beef Roll</div><div class="item-desc">Bœuf tataki, avocat, poivron, carottes sautées</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Salmon Roll</div><div class="item-desc">Saumon, concombre, cheese</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Spring</div><div class="item-desc">Poulet pané, laitue, avocat, papier de riz</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="futomaki">
+    <div class="section-header reveal">
+      <span class="section-emoji">🌯</span>
+      <h2 class="section-title">Futomaki</h2>
+      <span class="section-sub">4 / 8 Pièces</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/futomaki.png" alt="Futomaki — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Saumon</div><div class="item-desc">Saumon, avocat, cheese</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Chicken</div><div class="item-desc">Poulet pané, avocat, cheese</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Dorade</div><div class="item-desc">Dorade panée, avocat, cheese</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Thon</div><div class="item-desc">Thon pané, avocat, cheese</div></div><div class="dual-val">850</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Futomaki Surimi</div><div class="item-desc">Surimi pané, avocat</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Futomaki</div><div class="item-desc">Saumon, surimi, avocat</div></div><div class="dual-val">1 000</div><div class="dual-val">2 000</div></div>
+      <div class="base-note">Base : Concombre + Avocat</div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="crunchy">
+    <div class="section-header reveal">
+      <span class="section-emoji">🍤</span>
+      <h2 class="section-title">Crunchy Roll</h2>
+      <span class="section-sub">4 / 8 Pièces</span>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/crunchy.png" alt="Crunchy Roll — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="table-header"><span>Article</span><span>4 pcs</span><span>8 pcs</span></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Salmon</div></div><div class="dual-val">950</div><div class="dual-val">1 900</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Crevette</div></div><div class="dual-val">900</div><div class="dual-val">1 800</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Chicken</div></div><div class="dual-val">700</div><div class="dual-val">1 400</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Dorade</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Poulpe</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Crunchy Thon</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="item-row-dual"><div><div class="item-name">Chili Crunchy</div><div class="item-desc">Surimi haché, chili, concombre, mayo épicée</div></div><div class="dual-val">800</div><div class="dual-val">1 600</div></div>
+      <div class="base-note">Base : Concombre + Avocat</div>
+    </div>
+  </section>
+
   <section class="menu-section" id="sandwich">
     <div class="section-header reveal">
       <span class="section-emoji">🥪</span>
       <h2 class="section-title">Club Sandwich Crunchy</h2>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/sandwich.png" alt="Club Sandwich Crunchy — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Club Sandwich Beef</div><div class="item-price">900 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Club Sandwich Chicken</div><div class="item-price">1 200 <small>DA</small></div></div>
@@ -703,13 +921,13 @@
     </div>
   </section>
 
-  <!-- BURGER -->
   <section class="menu-section" id="burger">
     <div class="section-header reveal">
       <span class="section-emoji">🍔</span>
       <h2 class="section-title">Sushi Burger</h2>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/burger.png" alt="Sushi Burger — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Sushi Burger Saumon</div><div class="item-price">1 700 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Sushi Burger Dorade</div><div class="item-price">1 400 <small>DA</small></div></div>
@@ -721,7 +939,6 @@
     </div>
   </section>
 
-  <!-- MIX BOX -->
   <section class="menu-section" id="mixbox">
     <div class="section-header reveal">
       <span class="section-emoji">🍱</span>
@@ -729,6 +946,7 @@
       <span class="section-sub">À Partager</span>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/mixbox.png" alt="Mix Box — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 08</span><span class="box-count">8 pcs</span></div><div class="item-price">1 600 <small>DA</small></div></div><div class="box-contents">4 California Chicken + 4 Crunchy Chicken</div></div>
       <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 10</span><span class="box-count">10 pcs</span></div><div class="item-price">1 800 <small>DA</small></div></div><div class="box-contents">6 Maki Avocat + 4 Crunchy Chicken</div></div>
       <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 13</span><span class="box-count">13 pcs</span></div><div class="item-price">2 500 <small>DA</small></div></div><div class="box-contents">4 California Chicken + 5 Futomaki Crevette + 4 Crunchy Chicken</div></div>
@@ -741,52 +959,36 @@
     <div class="sub-head reveal"><span class="se">👨‍🍳</span> Mix Box Special</div>
     <div class="menu-card reveal">
       <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 20</span><span class="box-count">20 pcs</span></div><div class="item-price">6 000 <small>DA</small></div></div><div class="box-contents">4 Planète Signature + 4 Manga + 4 Spring + 4 Green Dragon</div></div>
-      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 50</span><span class="box-count">50 pcs</span></div><div class="item-price">10 000 <small>DA</small></div></div><div class="box-contents">Sélection spéciale du Chef</div></div>
+      <div class="box-row"><div class="box-top"><div><span class="box-name">Mix Box 50</span><span class="box-count">50 pcs</span></div><div class="item-price">10 000 <small>DA</small></div></div><div class="box-contents">Rouleaux du Chef · Special Roll</div></div>
     </div>
   </section>
 
-  <!-- MAINS -->
-  <section class="menu-section" id="mains">
-    <div class="section-header reveal">
-      <span class="section-emoji">🍽️</span>
-      <h2 class="section-title">Plats Principaux</h2>
-    </div>
-    <div class="menu-card reveal">
-      <div class="item-grid">
-        <div class="item-row"><div class="item-name">Bœuf Sauté aux Oignons</div><div class="item-price">1 000 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Pavé de Saumon Laqué</div><div class="item-price">2 000 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Dorade Grillée</div><div class="item-price">1 200 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Chicken Crousty</div><div class="item-price">800 <small>DA</small></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DESSERTS -->
   <section class="menu-section" id="desserts">
     <div class="section-header reveal">
       <span class="section-emoji">🍨</span>
       <h2 class="section-title">Desserts</h2>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/desserts.png" alt="Desserts — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Maki Choco</div><div class="item-price">600 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Maki Choco Banane</div><div class="item-price">700 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Maki Choco Mangue</div><div class="item-price">800 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Maki Choco Banane-Mangue</div><div class="item-price">900 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Banane Tempura + Ice Cream</div><div class="item-price">600 <small>DA</small></div></div>
-        <div class="item-row"><div class="item-name">Cheese Boba</div><div class="item-price">600 <small>DA</small></div></div>
+        <div class="item-row"><div><div class="item-name">Cheese Boba</div><div class="item-desc">Sauce pistache · coulis de fruits · chocolat · spéculoos</div></div><div class="item-price">600 <small>DA</small></div></div>
         <div class="item-row"><div><div class="item-name">Mochi</div><div class="item-desc">Selon disponibilité</div></div><div class="item-price">400 <small>DA</small></div></div>
       </div>
     </div>
   </section>
 
-  <!-- DRINKS -->
   <section class="menu-section" id="drinks">
     <div class="section-header reveal">
       <span class="section-emoji">🥤</span>
       <h2 class="section-title">Boissons Froides</h2>
     </div>
     <div class="menu-card reveal">
+      <div class="card-dish"><img src="images/drinks.png" alt="Boissons Froides — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
       <div class="item-grid">
         <div class="item-row"><div class="item-name">Canette 33cl</div><div class="item-price">100 <small>DA</small></div></div>
         <div class="item-row"><div class="item-name">Jus 33cl</div><div class="item-price">80 <small>DA</small></div></div>
@@ -801,8 +1003,11 @@
 
     <div class="sub-head reveal"><span class="se">🍵</span> Boissons Asiatiques</div>
     <div class="menu-card reveal">
-      <div class="item-row"><div class="item-name">Matcha Tea</div><div class="item-price">400 <small>DA</small></div></div>
-      <div class="item-row"><div class="item-name">Bubble Tea</div><div class="item-price">600 <small>DA</small></div></div>
+      <div class="card-dish"><img src="images/matcha.png" alt="Matcha &amp; Bubble Tea — Planète Sushi" loading="lazy" onerror="this.parentElement.remove()"></div>
+      <div class="item-grid">
+        <div class="item-row"><div class="item-name">Matcha Tea</div><div class="item-price">400 <small>DA</small></div></div>
+        <div class="item-row"><div class="item-name">Bubble Tea</div><div class="item-price">600 <small>DA</small></div></div>
+      </div>
       <div class="flavor-title">Parfums Bubble Tea</div>
       <div class="flavor-grid">
         <span class="flavor-tag">🍓 Strawberry</span>
@@ -823,14 +1028,22 @@
     <div class="footer-brand reveal">
       <img src="dragon.png" alt="Planète Sushi">
       <h3>Planète <span>Sushi</span></h3>
+      <p class="footer-slogan">Voyage gustatif au cœur de l'Asie</p>
+    </div>
+    <div class="footer-col reveal">
+      <h4>Commander</h4>
+      <p><a href="tel:0665065697"><strong>0665 06 56 97</strong></a><br>
+         <a href="tel:0559746777"><strong>0559 74 67 77</strong></a></p>
+    </div>
+    <div class="footer-col reveal">
+      <h4>Réseaux</h4>
+      <p><a href="https://www.instagram.com/planete.sushi_dz" target="_blank" rel="noopener">📸 Instagram</a><br>
+         <a href="https://www.tiktok.com/@plante.sushi_dz" target="_blank" rel="noopener">🎵 TikTok</a><br>
+         <a href="https://www.facebook.com/share/1HogiHUspu/" target="_blank" rel="noopener">📘 Facebook</a></p>
     </div>
     <div class="footer-col reveal">
       <h4>Adresse</h4>
-      <p><strong>Bordj Bou Arréridj</strong><br>Algérie 🇩🇿</p>
-    </div>
-    <div class="footer-col reveal">
-      <h4>Cuisine</h4>
-      <p>Japanese · Thai<br><strong>🍣 Fresh Daily</strong><br>Sushi préparés chaque jour</p>
+      <p><a href="https://maps.app.goo.gl/ms4EwEeRVt8C9ZTp9" target="_blank" rel="noopener">📍 <strong>Bordj Bou Arréridj</strong><br>Algérie 🇩🇿</a><br><span style="color:var(--red);font-weight:600">🍣 Fresh Daily</span></p>
     </div>
   </div>
   <div class="footer-bottom">
