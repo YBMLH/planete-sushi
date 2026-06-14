@@ -171,15 +171,27 @@
     animation:rise .9s .15s cubic-bezier(.2,.8,.2,1) forwards;
   }
 
-  .hero-dragon {
+  .hero-logo {
     width:clamp(190px,40vw,330px); aspect-ratio:1;
     margin:6px auto 4px;
-    background:url("dragon.png") center/contain no-repeat;
     opacity:0; transform:scale(.82) rotate(-6deg);
-    animation:dragonIn 1.3s .1s cubic-bezier(.2,.85,.25,1) forwards, float 6s 1.4s ease-in-out infinite;
+    animation:logoIn 1.3s .1s cubic-bezier(.2,.85,.25,1) forwards, float 6s 1.4s ease-in-out infinite;
     will-change:transform;
+    filter:drop-shadow(0 12px 24px var(--glow));
   }
-  @keyframes dragonIn { to{opacity:1; transform:scale(1) rotate(0);} }
+  .hero-logo svg { width:100%; height:100%; display:block; overflow:visible; }
+  .hl-plate { fill:none; stroke:var(--text); stroke-width:12; stroke-linecap:round; transition:stroke .5s ease; }
+  .hl-sun   { fill:var(--red); }
+  .hl-stick { fill:var(--gold); stroke:var(--black); stroke-width:2; stroke-linejoin:round; }
+  [data-theme="dark"] .hl-stick { stroke:#0c0b0a; }
+
+  /* chopsticks: gentle sway of the pair + a subtle pinch of the upper stick */
+  .hl-sticks    { transform-box:fill-box; transform-origin:18% 82%; animation:stickSway 3.4s ease-in-out infinite; }
+  .hl-stick-top { transform-box:fill-box; transform-origin:62% 50%; animation:stickPinch 1.7s ease-in-out infinite; }
+
+  @keyframes logoIn { to{opacity:1; transform:scale(1) rotate(0);} }
+  @keyframes stickSway  { 0%,100%{transform:rotate(-5deg);} 50%{transform:rotate(2.5deg);} }
+  @keyframes stickPinch { 0%,100%{transform:rotate(0);} 50%{transform:rotate(-3.6deg);} }
   @keyframes float { 0%,100%{transform:translateY(0) rotate(0);} 50%{transform:translateY(-14px) rotate(1.5deg);} }
 
   .hero h2 {
@@ -534,7 +546,16 @@
 <section class="hero" id="top">
   <div class="hero-glow"></div>
   <p class="hero-kanji">鮨 · Planète Sushi · 寿司</p>
-  <div class="hero-dragon" role="img" aria-label="Dragon rouge Planète Sushi"></div>
+  <div class="hero-logo" role="img" aria-label="Logo Planète Sushi — assiette et baguettes">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle class="hl-plate" cx="196" cy="214" r="116"/>
+      <circle class="hl-sun" cx="166" cy="214" r="74"/>
+      <g class="hl-sticks">
+        <rect class="hl-stick hl-stick-bot" x="84" y="208" width="266" height="13" rx="6.5" transform="rotate(-28 220 214)"/>
+        <rect class="hl-stick hl-stick-top" x="84" y="209" width="266" height="11" rx="5.5" transform="rotate(-19 220 214)"/>
+      </g>
+    </svg>
+  </div>
   <h2><span class="l1">Planète</span><span class="l2">Sushi</span></h2>
   <p class="hero-tag">Voyage gustatif au cœur de l'Asie — sushi frais préparés chaque jour à Bordj Bou Arréridj.</p>
   <div class="hero-meta">
