@@ -56,6 +56,9 @@
 
   * { margin:0; padding:0; box-sizing:border-box; }
 
+  /* images never trigger the long-press popup / drag (keeps links working) */
+  img { -webkit-user-drag:none; -webkit-touch-callout:none; }
+
   html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 
   body {
@@ -360,7 +363,7 @@
   }
   /* <picture> wrapper must not create a box, so the img stays the flex child and
      its width:min(64%,240px) resolves against the card (keeps the dish centered) */
-  .card-dish picture { display:contents; }
+  .card-dish picture { display:contents; pointer-events:none; -webkit-touch-callout:none; }
   .card-dish img {
     position:relative; z-index:1;
     width:min(64%,240px); height:auto; display:block;
