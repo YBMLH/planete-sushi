@@ -530,6 +530,21 @@
   .contact-fresh { margin-top:12px; color:var(--red); font-weight:700; font-size:.78rem; letter-spacing:.06em; }
   .footer-bottom { border-top:1px solid var(--border); padding:18px 20px; text-align:center; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
   .footer-bottom strong { color:var(--red); }
+  .dev-credit { margin-top:10px; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; justify-content:center; gap:8px; }
+  .mk-btn {
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:4px 13px; border-radius:50px; text-decoration:none;
+    font-weight:900; letter-spacing:.12em; font-size:.62rem;
+    color:#fff; background:linear-gradient(135deg,#7c3aed,#a855f7 55%,#c084fc);
+    box-shadow:0 4px 14px -4px rgba(124,58,237,.6);
+    animation:mkPulse 2.2s ease-in-out infinite;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
+  }
+  .mk-btn:hover, .mk-btn:focus-visible { transform:translateY(-2px) scale(1.07); box-shadow:0 9px 24px -4px rgba(168,85,247,.85); }
+  @keyframes mkPulse {
+    0%,100% { box-shadow:0 4px 14px -4px rgba(124,58,237,.5); transform:scale(1); }
+    50%     { box-shadow:0 5px 22px -2px rgba(168,85,247,.95); transform:scale(1.05); }
+  }
 
   /* back to top */
   .to-top {
@@ -1126,6 +1141,7 @@
   </div>
   <div class="footer-bottom">
     © <span id="year"></span> <strong>Planète Sushi</strong> · Japanese · Thai Restaurant
+    <div class="dev-credit">developed by <a class="mk-btn" href="https://wa.me/213795006864" target="_blank" rel="noopener" aria-label="Contacter MK sur WhatsApp">MK</a></div>
   </div>
 </footer>
 
