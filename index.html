@@ -109,6 +109,7 @@
     filter:drop-shadow(0 2px 6px var(--glow));
     transition:transform .5s cubic-bezier(.2,.8,.2,1);
   }
+  .brand-mark picture, .footer-brand picture { display:contents; }
   .brand-mark img, .brand-mark svg { width:100%; height:100%; object-fit:contain; display:block; overflow:visible; }
   .brand:hover .brand-mark { transform:rotate(-8deg) scale(1.06); }
   .brand-text h1 {
@@ -178,26 +179,21 @@
   }
 
   .hero-logo {
-    width:clamp(190px,40vw,330px); aspect-ratio:1;
-    margin:6px auto 4px;
+    position:relative;
+    width:clamp(210px,46vw,380px); aspect-ratio:700/698;
+    margin:6px auto 2px;
     opacity:0; transform:scale(.82) rotate(-6deg);
     animation:logoIn 1.3s .1s cubic-bezier(.2,.85,.25,1) forwards, float 6s 1.4s ease-in-out infinite;
     will-change:transform;
     filter:drop-shadow(0 12px 24px var(--glow));
   }
-  .hero-logo svg { width:100%; height:100%; display:block; overflow:visible; }
-  .hl-plate { fill:none; stroke:var(--text); stroke-width:12; stroke-linecap:round; transition:stroke .5s ease; }
-  .hl-sun   { fill:var(--red); }
-  .hl-stick { fill:var(--gold); stroke:var(--black); stroke-width:2; stroke-linejoin:round; }
-  [data-theme="dark"] .hl-stick { stroke:#0c0b0a; }
-
-  /* chopsticks: gentle sway of the pair + a subtle pinch of the upper stick */
-  .hero-logo .hl-sticks    { transform-box:fill-box; transform-origin:18% 82%; animation:stickSway 3.4s ease-in-out infinite; }
-  .hero-logo .hl-stick-top { transform-box:fill-box; transform-origin:62% 50%; animation:stickPinch 1.7s ease-in-out infinite; }
+  .hero-logo picture { position:absolute; inset:0; display:block; }
+  .hero-logo img { width:100%; height:100%; object-fit:contain; display:block; }
+  /* the wooden chopsticks layer sways around its lower-left (holding) end */
+  .hero-logo .ll-sticks { transform-origin:16% 63%; animation:stickSway 3.6s ease-in-out infinite; }
 
   @keyframes logoIn { to{opacity:1; transform:scale(1) rotate(0);} }
-  @keyframes stickSway  { 0%,100%{transform:rotate(-5deg);} 50%{transform:rotate(2.5deg);} }
-  @keyframes stickPinch { 0%,100%{transform:rotate(0);} 50%{transform:rotate(-3.6deg);} }
+  @keyframes stickSway { 0%,100%{transform:rotate(-4deg);} 50%{transform:rotate(2.2deg);} }
   @keyframes float { 0%,100%{transform:translateY(0) rotate(0);} 50%{transform:translateY(-14px) rotate(1.5deg);} }
 
   .hero h2 {
@@ -570,13 +566,8 @@
 <!-- ───── HEADER ───── -->
 <header id="header">
   <a class="brand" href="#top" aria-label="Planète Sushi accueil">
-    <span class="brand-mark" role="img" aria-label="Planète Sushi">
-      <svg viewBox="0 0 400 400" aria-hidden="true">
-        <circle class="hl-plate" cx="196" cy="214" r="116"/>
-        <circle class="hl-sun" cx="166" cy="214" r="74"/>
-        <rect class="hl-stick" x="84" y="208" width="266" height="13" rx="6.5" transform="rotate(-28 220 214)"/>
-        <rect class="hl-stick" x="84" y="209" width="266" height="11" rx="5.5" transform="rotate(-19 220 214)"/>
-      </svg>
+    <span class="brand-mark">
+      <picture><source srcset="images/logo-emblem.webp" type="image/webp"><img src="images/logo-emblem.png" alt="Planète Sushi"></picture>
     </span>
     <span class="brand-text">
       <h1>Planète <span>Sushi</span></h1>
@@ -607,17 +598,10 @@
 <section class="hero" id="top">
   <div class="hero-glow"></div>
   <p class="hero-kanji">鮨 · Planète Sushi · 寿司</p>
-  <div class="hero-logo" role="img" aria-label="Logo Planète Sushi — assiette et baguettes">
-    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle class="hl-plate" cx="196" cy="214" r="116"/>
-      <circle class="hl-sun" cx="166" cy="214" r="74"/>
-      <g class="hl-sticks">
-        <rect class="hl-stick hl-stick-bot" x="84" y="208" width="266" height="13" rx="6.5" transform="rotate(-28 220 214)"/>
-        <rect class="hl-stick hl-stick-top" x="84" y="209" width="266" height="11" rx="5.5" transform="rotate(-19 220 214)"/>
-      </g>
-    </svg>
+  <div class="hero-logo" role="img" aria-label="Planète Sushi">
+    <picture class="ll-base"><source srcset="images/logo-base.webp" type="image/webp"><img src="images/logo-base.png" alt="Planète Sushi"></picture>
+    <picture class="ll-sticks"><source srcset="images/logo-sticks.webp" type="image/webp"><img src="images/logo-sticks.png" alt=""></picture>
   </div>
-  <h2><span class="l1">Planète</span><span class="l2">Sushi</span></h2>
   <p class="hero-tag">Voyage gustatif au cœur de l'Asie — sushi frais préparés chaque jour à Bordj Bou Arréridj.</p>
   <div class="hero-meta">
     <span>🍣 Fresh Daily</span><span class="dot"></span>
@@ -1125,12 +1109,7 @@
 <footer id="contact">
   <div class="footer-inner">
     <div class="footer-brand reveal">
-      <svg viewBox="0 0 400 400" role="img" aria-label="Planète Sushi">
-        <circle class="hl-plate" cx="196" cy="214" r="116"/>
-        <circle class="hl-sun" cx="166" cy="214" r="74"/>
-        <rect class="hl-stick" x="84" y="208" width="266" height="13" rx="6.5" transform="rotate(-28 220 214)"/>
-        <rect class="hl-stick" x="84" y="209" width="266" height="11" rx="5.5" transform="rotate(-19 220 214)"/>
-      </svg>
+      <picture><source srcset="images/logo-emblem.webp" type="image/webp"><img src="images/logo-emblem.png" alt="Planète Sushi"></picture>
       <h3>Planète <span>Sushi</span></h3>
       <p class="footer-slogan">Voyage gustatif au cœur de l'Asie</p>
     </div>
