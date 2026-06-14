@@ -7,7 +7,7 @@ photos (dish on a dark / plain background) to cut out **keeping the plate**:
 
 - [ ] Bœuf Sauté aux Oignons
 - [ ] Pavé de Saumon Laqué
-- [ ] Riz Thaï
+- [x] Riz Thaï  ✅
 - [ ] Nouilles
 
 Process once photos arrive: rembg/brightness cut-out → keep plate → drop into
