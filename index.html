@@ -110,6 +110,11 @@
     transition:transform .5s cubic-bezier(.2,.8,.2,1);
   }
   .brand-mark picture, .footer-brand picture { display:contents; }
+  /* theme-aware emblem: black ring (light) vs white ring (dark) */
+  .brand-mark .emb-dark, .footer-brand .emb-dark { display:none; }
+  [data-theme="dark"] .brand-mark .emb-light, [data-theme="dark"] .footer-brand .emb-light { display:none; }
+  [data-theme="dark"] .brand-mark .emb-dark, [data-theme="dark"] .footer-brand .emb-dark { display:contents; }
+  [data-theme="dark"] .hero-logo .ll-ring img { filter:invert(1); }
   .brand-mark img, .brand-mark svg { width:100%; height:100%; object-fit:contain; display:block; overflow:visible; }
   .brand:hover .brand-mark { transform:rotate(-8deg) scale(1.06); }
   .brand-text h1 {
@@ -567,7 +572,8 @@
 <header id="header">
   <a class="brand" href="#top" aria-label="Planète Sushi accueil">
     <span class="brand-mark">
-      <picture><source srcset="images/logo-emblem.webp" type="image/webp"><img src="images/logo-emblem.png" alt="Planète Sushi"></picture>
+      <picture class="emb-light"><source srcset="images/logo-emblem.webp" type="image/webp"><img src="images/logo-emblem.png" alt="Planète Sushi"></picture>
+      <picture class="emb-dark"><source srcset="images/logo-emblem-dark.webp" type="image/webp"><img src="images/logo-emblem-dark.png" alt="Planète Sushi"></picture>
     </span>
     <span class="brand-text">
       <h1>Planète <span>Sushi</span></h1>
@@ -1110,7 +1116,8 @@
 <footer id="contact">
   <div class="footer-inner">
     <div class="footer-brand reveal">
-      <picture><source srcset="images/logo-emblem.webp" type="image/webp"><img src="images/logo-emblem.png" alt="Planète Sushi"></picture>
+      <picture class="emb-light"><source srcset="images/logo-emblem.webp" type="image/webp"><img src="images/logo-emblem.png" alt="Planète Sushi"></picture>
+      <picture class="emb-dark"><source srcset="images/logo-emblem-dark.webp" type="image/webp"><img src="images/logo-emblem-dark.png" alt="Planète Sushi"></picture>
       <h3>Planète <span>Sushi</span></h3>
       <p class="footer-slogan">Voyage gustatif au cœur de l'Asie</p>
     </div>
