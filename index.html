@@ -1132,8 +1132,8 @@
   const root = document.documentElement;
   const toggle = document.getElementById('themeToggle');
   const saved = localStorage.getItem('ps-theme');
-  if (saved) root.setAttribute('data-theme', saved);
-  else if (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme','dark');
+  // default to light; only honour an explicit previous choice by the user
+  root.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
 
   toggle.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
